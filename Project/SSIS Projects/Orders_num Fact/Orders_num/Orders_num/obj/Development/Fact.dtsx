@@ -1,0 +1,2109 @@
+<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="5/18/2024 11:19:52 AM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="LAPTOP-FPVQ1BQM"
+  DTS:CreatorName="LAPTOP-FPVQ1BQM\sova2"
+  DTS:DTSID="{017874D1-270C-4C69-8374-5992C573EC9E}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="16.0.5397.1"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="Package1"
+  DTS:PackageType="5"
+  DTS:VersionBuild="24"
+  DTS:VersionGUID="{893069DB-C165-4244-9C77-EF3AFA86A5F6}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[LAPTOP-FPVQ1BQM]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{F4F76EF3-8C16-45B0-98E1-1C5A44892171}"
+      DTS:ObjectName="LAPTOP-FPVQ1BQM">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectRetryCount="1"
+          DTS:ConnectRetryInterval="5"
+          DTS:ConnectionString="Data Source=LAPTOP-FPVQ1BQM;Initial Catalog=SalesDB;Provider=SQLOLEDB.1;Integrated Security=SSPI;Auto Translate=False;Application Name=SSIS-Package-{F4F76EF3-8C16-45B0-98E1-1C5A44892171}LAPTOP-FPVQ1BQM;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[LAPTOP-SVQ0715Q.Sales]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{80FD185E-269F-44B1-A1F3-9FC8B7AD143F}"
+      DTS:ObjectName="LAPTOP-SVQ0715Q.Sales">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectRetryCount="1"
+          DTS:ConnectRetryInterval="5"
+          DTS:ConnectionString="Data Source=LAPTOP-SVQ0715Q;Initial Catalog=Sales;Provider=SQLOLEDB.1;Integrated Security=SSPI;Application Name=SSIS-Package1-{80FD185E-269F-44B1-A1F3-9FC8B7AD143F}LAPTOP-SVQ0715Q.Sales;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{CB511C11-74DF-4CB0-96B3-8178E4C91056}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="last_extract">
+      <DTS:VariableValue
+        DTS:DataType="7">1/1/1950 4:13:54 PM</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{B41C168B-BB75-44E8-BCCD-6F688E3BC9A8}"
+      DTS:EvaluateAsExpression="True"
+      DTS:Expression="&quot;SELECT  * FROM Sales.Orders WHERE last_update &gt; '&quot; + (DT_WSTR, 50) @[User::last_extract]  + &quot;';&quot;"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="SQL_SELECT">
+      <DTS:VariableValue
+        DTS:DataType="8">SELECT  * FROM Sales.Orders WHERE last_update &gt; '1/1/1950 4:13:54 PM';</DTS:VariableValue>
+    </DTS:Variable>
+  </DTS:Variables>
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Last Extract"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{D15A0812-64A6-4AD5-A1A2-E964F6E5285F}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Last Extract"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2022; © 2022 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{80FD185E-269F-44B1-A1F3-9FC8B7AD143F}"
+          SQLTask:SqlStatementSource="SELECT last_extract_date FROM STG.Conf_Table WHERE Table_Name = 'ShipperFact';"
+          SQLTask:ResultType="ResultSetType_SingleRow" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+          <SQLTask:ResultBinding
+            SQLTask:ResultName="0"
+            SQLTask:DtsVariableName="User::last_extract" />
+        </SQLTask:SqlTaskData>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Load STG Shipped Orders"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{2f66ce78-9122-4328-bc4f-06c27199d33a}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Load STG Shipped Orders"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\Load STG Shipped Orders\Number of Orders"
+              componentClassID="Microsoft.Aggregate"
+              contactInfo="Aggregate;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;3"
+              description="Aggregates data with functions such as Average, Sum, Count, Max, and Min. For example, group data to compute the sum of sales per product or the average visits per day."
+              name="Number of Orders"
+              version="3">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the approximate number of group by keys that the aggregation produces. Low indicates 500,000 key values, Medium indicates 5 million key values, and High indicates more than 25 million key values. Unspecified indicates no KeyScale value is used."
+                  name="KeyScale"
+                  typeConverter="KeyScaleType">0</property>
+                <property
+                  dataType="System.Null"
+                  description="Specifies the exact number of group by keys that the aggregation produces. If a KeyScale value is specified, the value in Keys takes precedence."
+                  name="Keys" />
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the approximate number of distinct values in a column that the aggregation counts distinctly. Low indicates 500,000 key values, Medium indicates 5 million key values, and High indicates more than 25 million key values. Unspecified indicates no CountDistinctScale value is used."
+                  name="CountDistinctScale"
+                  typeConverter="KeyScaleType">0</property>
+                <property
+                  dataType="System.Null"
+                  description="Specifies the exact number of distinct values in a column that the aggregation counts distinctly. If a CountDistinctScale value is specified, the value in CountDistinctKeys takes precedence."
+                  name="CountDistinctKeys" />
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the percentage by which memory can be extended during the aggregation. Valid values are between 1 and 100."
+                  name="AutoExtendFactor">25</property>
+              </properties>
+              <inputs>
+                <input
+                  refId="Package\Load STG Shipped Orders\Number of Orders.Inputs[Aggregate Input 1]"
+                  name="Aggregate Input 1">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Load STG Shipped Orders\Number of Orders.Inputs[Aggregate Input 1].Columns[ShippedDate]"
+                      cachedDataType="wstr"
+                      cachedLength="10"
+                      cachedName="ShippedDate"
+                      lineageId="Package\Load STG Shipped Orders\SRC FACT.Outputs[OLE DB Source Output].Columns[ShippedDate]" />
+                    <inputColumn
+                      refId="Package\Load STG Shipped Orders\Number of Orders.Inputs[Aggregate Input 1].Columns[OrderID]"
+                      cachedDataType="i4"
+                      cachedName="OrderID"
+                      lineageId="Package\Load STG Shipped Orders\SRC FACT.Outputs[OLE DB Source Output].Columns[OrderID]" />
+                    <inputColumn
+                      refId="Package\Load STG Shipped Orders\Number of Orders.Inputs[Aggregate Input 1].Columns[ShipVia]"
+                      cachedDataType="i4"
+                      cachedName="ShipVia"
+                      lineageId="Package\Load STG Shipped Orders\SRC FACT.Outputs[OLE DB Source Output].Columns[ShipVia]" />
+                    <inputColumn
+                      refId="Package\Load STG Shipped Orders\Number of Orders.Inputs[Aggregate Input 1].Columns[last_update]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="last_update"
+                      lineageId="Package\Load STG Shipped Orders\SRC FACT.Outputs[OLE DB Source Output].Columns[last_update]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Load STG Shipped Orders\Number of Orders.Outputs[Aggregate Output 1]"
+                  name="Aggregate Output 1">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the approximate number of group by keys that the aggregation produces. Low indicates 500,000 key values, Medium indicates 5 million key values, and High indicates more than 25 million key values. Unspecified indicates no KeyScale value is used."
+                      name="KeyScale"
+                      typeConverter="KeyScaleType">0</property>
+                    <property
+                      dataType="System.Null"
+                      description="Specifies the exact number of group by keys that the aggregation produces. If a KeyScale value is specified, the value in Keys takes precedence."
+                      name="Keys" />
+                  </properties>
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load STG Shipped Orders\Number of Orders.Outputs[Aggregate Output 1].Columns[ShippedDate]"
+                      dataType="wstr"
+                      length="10"
+                      lineageId="Package\Load STG Shipped Orders\Number of Orders.Outputs[Aggregate Output 1].Columns[ShippedDate]"
+                      name="ShippedDate">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the ID of the input column used in the aggregation."
+                          name="AggregationColumnId">#{Package\Load STG Shipped Orders\SRC FACT.Outputs[OLE DB Source Output].Columns[ShippedDate]}</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the type of aggregation."
+                          name="AggregationType"
+                          typeConverter="AggregationType">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Indicates whether the column requires special handling because it may contain oversized data or it requires precision beyond a float data type."
+                          name="IsBig">1</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the string comparison options."
+                          name="AggregationComparisonFlags">0</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Load STG Shipped Orders\Number of Orders.Outputs[Aggregate Output 1].Columns[NumberOfOrders]"
+                      dataType="ui8"
+                      lineageId="Package\Load STG Shipped Orders\Number of Orders.Outputs[Aggregate Output 1].Columns[NumberOfOrders]"
+                      name="NumberOfOrders">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the ID of the input column used in the aggregation."
+                          name="AggregationColumnId">#{Package\Load STG Shipped Orders\SRC FACT.Outputs[OLE DB Source Output].Columns[OrderID]}</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the type of aggregation."
+                          name="AggregationType"
+                          typeConverter="AggregationType">1</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Indicates whether the column requires special handling because it may contain oversized data or it requires precision beyond a float data type."
+                          name="IsBig">1</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the string comparison options."
+                          name="AggregationComparisonFlags">0</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Load STG Shipped Orders\Number of Orders.Outputs[Aggregate Output 1].Columns[ShipVia]"
+                      dataType="i4"
+                      lineageId="Package\Load STG Shipped Orders\Number of Orders.Outputs[Aggregate Output 1].Columns[ShipVia]"
+                      name="ShipVia">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the ID of the input column used in the aggregation."
+                          name="AggregationColumnId">#{Package\Load STG Shipped Orders\SRC FACT.Outputs[OLE DB Source Output].Columns[ShipVia]}</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the type of aggregation."
+                          name="AggregationType"
+                          typeConverter="AggregationType">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Indicates whether the column requires special handling because it may contain oversized data or it requires precision beyond a float data type."
+                          name="IsBig">1</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the string comparison options."
+                          name="AggregationComparisonFlags">0</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Load STG Shipped Orders\Number of Orders.Outputs[Aggregate Output 1].Columns[last_update]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\Load STG Shipped Orders\Number of Orders.Outputs[Aggregate Output 1].Columns[last_update]"
+                      name="last_update">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the ID of the input column used in the aggregation."
+                          name="AggregationColumnId">#{Package\Load STG Shipped Orders\SRC FACT.Outputs[OLE DB Source Output].Columns[last_update]}</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the type of aggregation."
+                          name="AggregationType"
+                          typeConverter="AggregationType">7</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Indicates whether the column requires special handling because it may contain oversized data or it requires precision beyond a float data type."
+                          name="IsBig">1</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the string comparison options."
+                          name="AggregationComparisonFlags">0</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Load STG Shipped Orders\SRC FACT"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="SRC FACT"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[Sales].[Orders]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from Sales.Orders where last_update &gt; ?</property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable">User::SQL_SELECT</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping">"Parameter0:Input",{4350E6B4-2BD8-4612-A0F4-27C9E8E7269C};</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Load STG Shipped Orders\SRC FACT.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[LAPTOP-SVQ0715Q.Sales]"
+                  connectionManagerRefId="Package.ConnectionManagers[LAPTOP-SVQ0715Q.Sales]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Load STG Shipped Orders\SRC FACT.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load STG Shipped Orders\SRC FACT.Outputs[OLE DB Source Output].Columns[ShippedDate]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load STG Shipped Orders\SRC FACT.Outputs[OLE DB Source Output].ExternalColumns[ShippedDate]"
+                      length="10"
+                      lineageId="Package\Load STG Shipped Orders\SRC FACT.Outputs[OLE DB Source Output].Columns[ShippedDate]"
+                      name="ShippedDate"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load STG Shipped Orders\SRC FACT.Outputs[OLE DB Source Output].Columns[OrderID]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load STG Shipped Orders\SRC FACT.Outputs[OLE DB Source Output].ExternalColumns[OrderID]"
+                      lineageId="Package\Load STG Shipped Orders\SRC FACT.Outputs[OLE DB Source Output].Columns[OrderID]"
+                      name="OrderID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load STG Shipped Orders\SRC FACT.Outputs[OLE DB Source Output].Columns[ShipVia]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load STG Shipped Orders\SRC FACT.Outputs[OLE DB Source Output].ExternalColumns[ShipVia]"
+                      lineageId="Package\Load STG Shipped Orders\SRC FACT.Outputs[OLE DB Source Output].Columns[ShipVia]"
+                      name="ShipVia"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load STG Shipped Orders\SRC FACT.Outputs[OLE DB Source Output].Columns[last_update]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load STG Shipped Orders\SRC FACT.Outputs[OLE DB Source Output].ExternalColumns[last_update]"
+                      lineageId="Package\Load STG Shipped Orders\SRC FACT.Outputs[OLE DB Source Output].Columns[last_update]"
+                      name="last_update"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Load STG Shipped Orders\SRC FACT.Outputs[OLE DB Source Output].ExternalColumns[OrderID]"
+                      dataType="i4"
+                      name="OrderID" />
+                    <externalMetadataColumn
+                      refId="Package\Load STG Shipped Orders\SRC FACT.Outputs[OLE DB Source Output].ExternalColumns[OrderDate]"
+                      dataType="wstr"
+                      length="10"
+                      name="OrderDate" />
+                    <externalMetadataColumn
+                      refId="Package\Load STG Shipped Orders\SRC FACT.Outputs[OLE DB Source Output].ExternalColumns[ShippedDate]"
+                      dataType="wstr"
+                      length="10"
+                      name="ShippedDate" />
+                    <externalMetadataColumn
+                      refId="Package\Load STG Shipped Orders\SRC FACT.Outputs[OLE DB Source Output].ExternalColumns[CustomerID]"
+                      dataType="i4"
+                      name="CustomerID" />
+                    <externalMetadataColumn
+                      refId="Package\Load STG Shipped Orders\SRC FACT.Outputs[OLE DB Source Output].ExternalColumns[EmployeeID]"
+                      dataType="i4"
+                      name="EmployeeID" />
+                    <externalMetadataColumn
+                      refId="Package\Load STG Shipped Orders\SRC FACT.Outputs[OLE DB Source Output].ExternalColumns[RequiredDate]"
+                      dataType="wstr"
+                      length="10"
+                      name="RequiredDate" />
+                    <externalMetadataColumn
+                      refId="Package\Load STG Shipped Orders\SRC FACT.Outputs[OLE DB Source Output].ExternalColumns[ShipVia]"
+                      dataType="i4"
+                      name="ShipVia" />
+                    <externalMetadataColumn
+                      refId="Package\Load STG Shipped Orders\SRC FACT.Outputs[OLE DB Source Output].ExternalColumns[Freight]"
+                      dataType="r8"
+                      name="Freight" />
+                    <externalMetadataColumn
+                      refId="Package\Load STG Shipped Orders\SRC FACT.Outputs[OLE DB Source Output].ExternalColumns[ShipName]"
+                      codePage="1252"
+                      dataType="str"
+                      length="40"
+                      name="ShipName" />
+                    <externalMetadataColumn
+                      refId="Package\Load STG Shipped Orders\SRC FACT.Outputs[OLE DB Source Output].ExternalColumns[ShipAddress]"
+                      codePage="1252"
+                      dataType="str"
+                      length="60"
+                      name="ShipAddress" />
+                    <externalMetadataColumn
+                      refId="Package\Load STG Shipped Orders\SRC FACT.Outputs[OLE DB Source Output].ExternalColumns[ShipCity]"
+                      codePage="1252"
+                      dataType="str"
+                      length="15"
+                      name="ShipCity" />
+                    <externalMetadataColumn
+                      refId="Package\Load STG Shipped Orders\SRC FACT.Outputs[OLE DB Source Output].ExternalColumns[ShipRegion]"
+                      codePage="1252"
+                      dataType="str"
+                      length="15"
+                      name="ShipRegion" />
+                    <externalMetadataColumn
+                      refId="Package\Load STG Shipped Orders\SRC FACT.Outputs[OLE DB Source Output].ExternalColumns[ShipPostalCode]"
+                      codePage="1252"
+                      dataType="str"
+                      length="10"
+                      name="ShipPostalCode" />
+                    <externalMetadataColumn
+                      refId="Package\Load STG Shipped Orders\SRC FACT.Outputs[OLE DB Source Output].ExternalColumns[ShipCountry]"
+                      codePage="1252"
+                      dataType="str"
+                      length="15"
+                      name="ShipCountry" />
+                    <externalMetadataColumn
+                      refId="Package\Load STG Shipped Orders\SRC FACT.Outputs[OLE DB Source Output].ExternalColumns[last_update]"
+                      dataType="dbTimeStamp"
+                      name="last_update" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Load STG Shipped Orders\SRC FACT.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load STG Shipped Orders\SRC FACT.Outputs[OLE DB Source Error Output].Columns[ShippedDate]"
+                      dataType="wstr"
+                      length="10"
+                      lineageId="Package\Load STG Shipped Orders\SRC FACT.Outputs[OLE DB Source Error Output].Columns[ShippedDate]"
+                      name="ShippedDate" />
+                    <outputColumn
+                      refId="Package\Load STG Shipped Orders\SRC FACT.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Load STG Shipped Orders\SRC FACT.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Load STG Shipped Orders\SRC FACT.Outputs[OLE DB Source Error Output].Columns[ShipVia]"
+                      dataType="i4"
+                      lineageId="Package\Load STG Shipped Orders\SRC FACT.Outputs[OLE DB Source Error Output].Columns[ShipVia]"
+                      name="ShipVia" />
+                    <outputColumn
+                      refId="Package\Load STG Shipped Orders\SRC FACT.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Load STG Shipped Orders\SRC FACT.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                    <outputColumn
+                      refId="Package\Load STG Shipped Orders\SRC FACT.Outputs[OLE DB Source Error Output].Columns[OrderID]"
+                      dataType="i4"
+                      lineageId="Package\Load STG Shipped Orders\SRC FACT.Outputs[OLE DB Source Error Output].Columns[OrderID]"
+                      name="OrderID" />
+                    <outputColumn
+                      refId="Package\Load STG Shipped Orders\SRC FACT.Outputs[OLE DB Source Error Output].Columns[last_update]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\Load STG Shipped Orders\SRC FACT.Outputs[OLE DB Source Error Output].Columns[last_update]"
+                      name="last_update" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Load STG Shipped Orders\STG FACT"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="STG FACT"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[STG].[FactOrdersShipped]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Load STG Shipped Orders\STG FACT.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[LAPTOP-SVQ0715Q.Sales]"
+                  connectionManagerRefId="Package.ConnectionManagers[LAPTOP-SVQ0715Q.Sales]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Load STG Shipped Orders\STG FACT.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Load STG Shipped Orders\STG FACT.Inputs[OLE DB Destination Input].Columns[ShippedDate]"
+                      cachedDataType="wstr"
+                      cachedLength="10"
+                      cachedName="ShippedDate"
+                      externalMetadataColumnId="Package\Load STG Shipped Orders\STG FACT.Inputs[OLE DB Destination Input].ExternalColumns[ShippedDate]"
+                      lineageId="Package\Load STG Shipped Orders\Number of Orders.Outputs[Aggregate Output 1].Columns[ShippedDate]" />
+                    <inputColumn
+                      refId="Package\Load STG Shipped Orders\STG FACT.Inputs[OLE DB Destination Input].Columns[NumberOfOrders]"
+                      cachedDataType="ui8"
+                      cachedName="NumberOfOrders"
+                      externalMetadataColumnId="Package\Load STG Shipped Orders\STG FACT.Inputs[OLE DB Destination Input].ExternalColumns[NumberOfOrders]"
+                      lineageId="Package\Load STG Shipped Orders\Number of Orders.Outputs[Aggregate Output 1].Columns[NumberOfOrders]" />
+                    <inputColumn
+                      refId="Package\Load STG Shipped Orders\STG FACT.Inputs[OLE DB Destination Input].Columns[last_update]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="last_update"
+                      externalMetadataColumnId="Package\Load STG Shipped Orders\STG FACT.Inputs[OLE DB Destination Input].ExternalColumns[src_update_date]"
+                      lineageId="Package\Load STG Shipped Orders\Number of Orders.Outputs[Aggregate Output 1].Columns[last_update]" />
+                    <inputColumn
+                      refId="Package\Load STG Shipped Orders\STG FACT.Inputs[OLE DB Destination Input].Columns[ShipVia]"
+                      cachedDataType="i4"
+                      cachedName="ShipVia"
+                      externalMetadataColumnId="Package\Load STG Shipped Orders\STG FACT.Inputs[OLE DB Destination Input].ExternalColumns[Shipper_key]"
+                      lineageId="Package\Load STG Shipped Orders\Number of Orders.Outputs[Aggregate Output 1].Columns[ShipVia]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Load STG Shipped Orders\STG FACT.Inputs[OLE DB Destination Input].ExternalColumns[Shipper_key]"
+                      dataType="i4"
+                      name="Shipper_key" />
+                    <externalMetadataColumn
+                      refId="Package\Load STG Shipped Orders\STG FACT.Inputs[OLE DB Destination Input].ExternalColumns[ShippedDate]"
+                      dataType="wstr"
+                      length="10"
+                      name="ShippedDate" />
+                    <externalMetadataColumn
+                      refId="Package\Load STG Shipped Orders\STG FACT.Inputs[OLE DB Destination Input].ExternalColumns[NumberOfOrders]"
+                      dataType="i4"
+                      name="NumberOfOrders" />
+                    <externalMetadataColumn
+                      refId="Package\Load STG Shipped Orders\STG FACT.Inputs[OLE DB Destination Input].ExternalColumns[src_update_date]"
+                      dataType="dbTimeStamp"
+                      name="src_update_date" />
+                    <externalMetadataColumn
+                      refId="Package\Load STG Shipped Orders\STG FACT.Inputs[OLE DB Destination Input].ExternalColumns[create_timestamp]"
+                      dataType="dbTimeStamp"
+                      name="create_timestamp" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Load STG Shipped Orders\STG FACT.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\Load STG Shipped Orders\STG FACT.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load STG Shipped Orders\STG FACT.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Load STG Shipped Orders\STG FACT.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Load STG Shipped Orders\STG FACT.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Load STG Shipped Orders\STG FACT.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Load STG Shipped Orders.Paths[Aggregate Output 1]"
+              endId="Package\Load STG Shipped Orders\STG FACT.Inputs[OLE DB Destination Input]"
+              name="Aggregate Output 1"
+              startId="Package\Load STG Shipped Orders\Number of Orders.Outputs[Aggregate Output 1]" />
+            <path
+              refId="Package\Load STG Shipped Orders.Paths[OLE DB Source Output]"
+              endId="Package\Load STG Shipped Orders\Number of Orders.Inputs[Aggregate Input 1]"
+              name="OLE DB Source Output"
+              startId="Package\Load STG Shipped Orders\SRC FACT.Outputs[OLE DB Source Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\STG TO DWH Shipped Orders"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{7e84941a-2f4d-497e-9cab-c8228a8ef7d1}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="STG TO DWH Shipped Orders"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\STG TO DWH Shipped Orders\Create_timestamp"
+              componentClassID="Microsoft.DerivedColumn"
+              contactInfo="Derived Column;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Creates new column values by applying expressions to transformation input columns. Create new columns or overwrite existing ones. For example, concatenate the values from the 'first name' and 'last name' column to make a 'full name' column."
+              name="Create_timestamp"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\STG TO DWH Shipped Orders\Create_timestamp.Inputs[Derived Column Input]"
+                  description="Input to the Derived Column Transformation"
+                  name="Derived Column Input">
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\STG TO DWH Shipped Orders\Create_timestamp.Outputs[Derived Column Output]"
+                  description="Default Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  name="Derived Column Output"
+                  synchronousInputId="Package\STG TO DWH Shipped Orders\Create_timestamp.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\STG TO DWH Shipped Orders\Create_timestamp.Outputs[Derived Column Output].Columns[create time]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\STG TO DWH Shipped Orders\Create_timestamp.Outputs[Derived Column Output].Columns[create time]"
+                      name="create time"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">[GETDATE]()</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">GETDATE()</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\STG TO DWH Shipped Orders\Create_timestamp.Outputs[Derived Column Error Output]"
+                  description="Error Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Derived Column Error Output"
+                  synchronousInputId="Package\STG TO DWH Shipped Orders\Create_timestamp.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\STG TO DWH Shipped Orders\Create_timestamp.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\STG TO DWH Shipped Orders\Create_timestamp.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\STG TO DWH Shipped Orders\Create_timestamp.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\STG TO DWH Shipped Orders\Create_timestamp.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\STG TO DWH Shipped Orders\Date Key"
+              componentClassID="Microsoft.DerivedColumn"
+              contactInfo="Derived Column;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Creates new column values by applying expressions to transformation input columns. Create new columns or overwrite existing ones. For example, concatenate the values from the 'first name' and 'last name' column to make a 'full name' column."
+              name="Date Key"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\STG TO DWH Shipped Orders\Date Key.Inputs[Derived Column Input]"
+                  description="Input to the Derived Column Transformation"
+                  name="Derived Column Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\STG TO DWH Shipped Orders\Date Key.Inputs[Derived Column Input].Columns[ShippedDate]"
+                      cachedDataType="wstr"
+                      cachedLength="10"
+                      cachedName="ShippedDate"
+                      lineageId="Package\STG TO DWH Shipped Orders\STG FACT.Outputs[OLE DB Source Output].Columns[ShippedDate]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\STG TO DWH Shipped Orders\Date Key.Outputs[Derived Column Output]"
+                  description="Default Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  name="Derived Column Output"
+                  synchronousInputId="Package\STG TO DWH Shipped Orders\Date Key.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\STG TO DWH Shipped Orders\Date Key.Outputs[Derived Column Output].Columns[DateKey]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\STG TO DWH Shipped Orders\Date Key.Outputs[Derived Column Output].Columns[DateKey]"
+                      name="DateKey"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">(DT_I4)([REPLACE]([LEFT]((DT_WSTR,50)(DT_DBTIMESTAMP)#{Package\STG TO DWH Shipped Orders\STG FACT.Outputs[OLE DB Source Output].Columns[ShippedDate]},10),"-",""))</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">(DT_I4)(REPLACE(LEFT((DT_WSTR,50)(DT_DBTIMESTAMP)ShippedDate,10),"-",""))</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\STG TO DWH Shipped Orders\Date Key.Outputs[Derived Column Error Output]"
+                  description="Error Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Derived Column Error Output"
+                  synchronousInputId="Package\STG TO DWH Shipped Orders\Date Key.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\STG TO DWH Shipped Orders\Date Key.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\STG TO DWH Shipped Orders\Date Key.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\STG TO DWH Shipped Orders\Date Key.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\STG TO DWH Shipped Orders\Date Key.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\STG TO DWH Shipped Orders\DWH FACT"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="DWH FACT"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[DWH].[FactOrdersShipped]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\STG TO DWH Shipped Orders\DWH FACT.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[LAPTOP-SVQ0715Q.Sales]"
+                  connectionManagerRefId="Package.ConnectionManagers[LAPTOP-SVQ0715Q.Sales]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\STG TO DWH Shipped Orders\DWH FACT.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\STG TO DWH Shipped Orders\DWH FACT.Inputs[OLE DB Destination Input].Columns[NumberOfOrders]"
+                      cachedDataType="i4"
+                      cachedName="NumberOfOrders"
+                      externalMetadataColumnId="Package\STG TO DWH Shipped Orders\DWH FACT.Inputs[OLE DB Destination Input].ExternalColumns[NumberOfOrders]"
+                      lineageId="Package\STG TO DWH Shipped Orders\STG FACT.Outputs[OLE DB Source Output].Columns[NumberOfOrders]" />
+                    <inputColumn
+                      refId="Package\STG TO DWH Shipped Orders\DWH FACT.Inputs[OLE DB Destination Input].Columns[DateKey]"
+                      cachedDataType="i4"
+                      cachedName="DateKey"
+                      externalMetadataColumnId="Package\STG TO DWH Shipped Orders\DWH FACT.Inputs[OLE DB Destination Input].ExternalColumns[TimeKey]"
+                      lineageId="Package\STG TO DWH Shipped Orders\Date Key.Outputs[Derived Column Output].Columns[DateKey]" />
+                    <inputColumn
+                      refId="Package\STG TO DWH Shipped Orders\DWH FACT.Inputs[OLE DB Destination Input].Columns[create time]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="create time"
+                      externalMetadataColumnId="Package\STG TO DWH Shipped Orders\DWH FACT.Inputs[OLE DB Destination Input].ExternalColumns[create_timestamp]"
+                      lineageId="Package\STG TO DWH Shipped Orders\Create_timestamp.Outputs[Derived Column Output].Columns[create time]" />
+                    <inputColumn
+                      refId="Package\STG TO DWH Shipped Orders\DWH FACT.Inputs[OLE DB Destination Input].Columns[shipper_key_DWH]"
+                      cachedDataType="i4"
+                      cachedName="shipper_key_DWH"
+                      externalMetadataColumnId="Package\STG TO DWH Shipped Orders\DWH FACT.Inputs[OLE DB Destination Input].ExternalColumns[Shipper_key]"
+                      lineageId="Package\STG TO DWH Shipped Orders\Shipper key.Outputs[Lookup Match Output].Columns[shipper_key_DWH]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\STG TO DWH Shipped Orders\DWH FACT.Inputs[OLE DB Destination Input].ExternalColumns[FactOrdersShipped]"
+                      dataType="i4"
+                      name="FactOrdersShipped" />
+                    <externalMetadataColumn
+                      refId="Package\STG TO DWH Shipped Orders\DWH FACT.Inputs[OLE DB Destination Input].ExternalColumns[Shipper_key]"
+                      dataType="i4"
+                      name="Shipper_key" />
+                    <externalMetadataColumn
+                      refId="Package\STG TO DWH Shipped Orders\DWH FACT.Inputs[OLE DB Destination Input].ExternalColumns[TimeKey]"
+                      dataType="i4"
+                      name="TimeKey" />
+                    <externalMetadataColumn
+                      refId="Package\STG TO DWH Shipped Orders\DWH FACT.Inputs[OLE DB Destination Input].ExternalColumns[NumberOfOrders]"
+                      dataType="i4"
+                      name="NumberOfOrders" />
+                    <externalMetadataColumn
+                      refId="Package\STG TO DWH Shipped Orders\DWH FACT.Inputs[OLE DB Destination Input].ExternalColumns[create_timestamp]"
+                      dataType="dbTimeStamp"
+                      name="create_timestamp" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\STG TO DWH Shipped Orders\DWH FACT.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\STG TO DWH Shipped Orders\DWH FACT.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\STG TO DWH Shipped Orders\DWH FACT.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\STG TO DWH Shipped Orders\DWH FACT.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\STG TO DWH Shipped Orders\DWH FACT.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\STG TO DWH Shipped Orders\DWH FACT.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\STG TO DWH Shipped Orders\DWH FACT LOOKUP"
+              componentClassID="Microsoft.Lookup"
+              contactInfo="Lookup;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;6"
+              description="Joins additional columns to the data flow by looking up values in a table. For example, join to the 'employee id' column the employees table to get 'hire date' and 'employee name'. We recommend this transformation when the lookup table can fit into memory."
+              name="DWH FACT LOOKUP"
+              usesDispositions="true"
+              version="6">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the SQL statement that generates the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from [DWH].[FactOrdersShipped]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies a SQL statement that uses parameters to generate the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommandParam"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from (select * from [DWH].[FactOrdersShipped]) [refTable]
+where [refTable].[TimeKey] = ? and [refTable].[Shipper_key] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the type of connection used to access the reference dataset."
+                  name="ConnectionType"
+                  typeConverter="LookupConnectionType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the cache type of the lookup table."
+                  name="CacheType"
+                  typeConverter="CacheType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies how the Lookup transformation handles rows without matching entries in the reference data set."
+                  name="NoMatchBehavior"
+                  typeConverter="LookupNoMatchBehavior">1</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the percentage of the cache that is allocated for rows with no matching entries in the reference dataset."
+                  name="NoMatchCachePercentage">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Maximum Memory Usage for Reference Cache on a 32 bit platform."
+                  name="MaxMemoryUsage">25</property>
+                <property
+                  dataType="System.Int64"
+                  description="Maximum Memory Usage for Reference Cache on a 64 bit platform."
+                  name="MaxMemoryUsage64">25</property>
+                <property
+                  dataType="System.String"
+                  description="Indicates whether to reference metadata in an XML format."
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="FactOrdersShipped" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Shipper_key" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="TimeKey" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="NumberOfOrders" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="create_timestamp" dataType="DT_DBTIMESTAMP" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                <property
+                  containsID="true"
+                  dataType="System.String"
+                  description="Specifies the list of lineage identifiers that map to the parameters that the SQL statement in the SQLCommand property uses. Entries in the list are separated by semicolons."
+                  name="ParameterMap">#{Package\STG TO DWH Shipped Orders\Date Key.Outputs[Derived Column Output].Columns[DateKey]};#{Package\STG TO DWH Shipped Orders\Shipper key.Outputs[Lookup Match Output].Columns[shipper_key_DWH]};</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Determines whether duplicate keys in the reference data should be treated as errors when full cache mode is used."
+                  name="TreatDuplicateKeysAsError">false</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\STG TO DWH Shipped Orders\DWH FACT LOOKUP.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[LAPTOP-SVQ0715Q.Sales]"
+                  connectionManagerRefId="Package.ConnectionManagers[LAPTOP-SVQ0715Q.Sales]"
+                  description="Connection manager used to access lookup data."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\STG TO DWH Shipped Orders\DWH FACT LOOKUP.Inputs[Lookup Input]"
+                  name="Lookup Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\STG TO DWH Shipped Orders\DWH FACT LOOKUP.Inputs[Lookup Input].Columns[shipper_key_DWH]"
+                      cachedDataType="i4"
+                      cachedName="shipper_key_DWH"
+                      lineageId="Package\STG TO DWH Shipped Orders\Shipper key.Outputs[Lookup Match Output].Columns[shipper_key_DWH]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">Shipper_key</property>
+                        <property
+                          dataType="System.Null"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\STG TO DWH Shipped Orders\DWH FACT LOOKUP.Inputs[Lookup Input].Columns[DateKey]"
+                      cachedDataType="i4"
+                      cachedName="DateKey"
+                      lineageId="Package\STG TO DWH Shipped Orders\Date Key.Outputs[Derived Column Output].Columns[DateKey]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">TimeKey</property>
+                        <property
+                          dataType="System.Null"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\STG TO DWH Shipped Orders\DWH FACT LOOKUP.Outputs[Lookup Match Output]"
+                  errorOrTruncationOperation="Lookup"
+                  exclusionGroup="1"
+                  name="Lookup Match Output"
+                  synchronousInputId="Package\STG TO DWH Shipped Orders\DWH FACT LOOKUP.Inputs[Lookup Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\STG TO DWH Shipped Orders\DWH FACT LOOKUP.Outputs[Lookup No Match Output]"
+                  description="The Lookup output that handles rows with no matching entries in the reference dataset. Use this output when the NoMatchBehavior property is set to &quot;Send rows with no matching entries to the no match output.&quot;"
+                  exclusionGroup="1"
+                  name="Lookup No Match Output"
+                  synchronousInputId="Package\STG TO DWH Shipped Orders\DWH FACT LOOKUP.Inputs[Lookup Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\STG TO DWH Shipped Orders\DWH FACT LOOKUP.Outputs[Lookup Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Lookup Error Output"
+                  synchronousInputId="Package\STG TO DWH Shipped Orders\DWH FACT LOOKUP.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\STG TO DWH Shipped Orders\DWH FACT LOOKUP.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\STG TO DWH Shipped Orders\DWH FACT LOOKUP.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\STG TO DWH Shipped Orders\DWH FACT LOOKUP.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\STG TO DWH Shipped Orders\DWH FACT LOOKUP.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\STG TO DWH Shipped Orders\Shipper key"
+              componentClassID="Microsoft.Lookup"
+              contactInfo="Lookup;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;6"
+              description="Joins additional columns to the data flow by looking up values in a table. For example, join to the 'employee id' column the employees table to get 'hire date' and 'employee name'. We recommend this transformation when the lookup table can fit into memory."
+              name="Shipper key"
+              usesDispositions="true"
+              version="6">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the SQL statement that generates the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from [DWH].[Shippers]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies a SQL statement that uses parameters to generate the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommandParam"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from (select * from [DWH].[Shippers]) [refTable]
+where [refTable].[ShipperID] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the type of connection used to access the reference dataset."
+                  name="ConnectionType"
+                  typeConverter="LookupConnectionType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the cache type of the lookup table."
+                  name="CacheType"
+                  typeConverter="CacheType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies how the Lookup transformation handles rows without matching entries in the reference data set."
+                  name="NoMatchBehavior"
+                  typeConverter="LookupNoMatchBehavior">1</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the percentage of the cache that is allocated for rows with no matching entries in the reference dataset."
+                  name="NoMatchCachePercentage">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Maximum Memory Usage for Reference Cache on a 32 bit platform."
+                  name="MaxMemoryUsage">25</property>
+                <property
+                  dataType="System.Int64"
+                  description="Maximum Memory Usage for Reference Cache on a 64 bit platform."
+                  name="MaxMemoryUsage64">25</property>
+                <property
+                  dataType="System.String"
+                  description="Indicates whether to reference metadata in an XML format."
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="shipper_key" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="ShipperID" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="CompanyName" dataType="DT_STR" length="40" precision="0" scale="0" codePage="1252"/&gt;&lt;referenceColumn name="Phone" dataType="DT_STR" length="24" precision="0" scale="0" codePage="1252"/&gt;&lt;referenceColumn name="create_timestamp" dataType="DT_DBTIMESTAMP" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="is_last" dataType="DT_BOOL" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="update_timestamp" dataType="DT_DBTIMESTAMP" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                <property
+                  containsID="true"
+                  dataType="System.String"
+                  description="Specifies the list of lineage identifiers that map to the parameters that the SQL statement in the SQLCommand property uses. Entries in the list are separated by semicolons."
+                  name="ParameterMap">#{Package\STG TO DWH Shipped Orders\STG FACT.Outputs[OLE DB Source Output].Columns[Shipper_key]};</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Determines whether duplicate keys in the reference data should be treated as errors when full cache mode is used."
+                  name="TreatDuplicateKeysAsError">false</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\STG TO DWH Shipped Orders\Shipper key.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[LAPTOP-SVQ0715Q.Sales]"
+                  connectionManagerRefId="Package.ConnectionManagers[LAPTOP-SVQ0715Q.Sales]"
+                  description="Connection manager used to access lookup data."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\STG TO DWH Shipped Orders\Shipper key.Inputs[Lookup Input]"
+                  name="Lookup Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\STG TO DWH Shipped Orders\Shipper key.Inputs[Lookup Input].Columns[Shipper_key]"
+                      cachedDataType="i4"
+                      cachedName="Shipper_key"
+                      lineageId="Package\STG TO DWH Shipped Orders\STG FACT.Outputs[OLE DB Source Output].Columns[Shipper_key]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">ShipperID</property>
+                        <property
+                          dataType="System.Null"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\STG TO DWH Shipped Orders\Shipper key.Outputs[Lookup Match Output]"
+                  errorOrTruncationOperation="Lookup"
+                  exclusionGroup="1"
+                  name="Lookup Match Output"
+                  synchronousInputId="Package\STG TO DWH Shipped Orders\Shipper key.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\STG TO DWH Shipped Orders\Shipper key.Outputs[Lookup Match Output].Columns[shipper_key_DWH]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Copy Column"
+                      lineageId="Package\STG TO DWH Shipped Orders\Shipper key.Outputs[Lookup Match Output].Columns[shipper_key_DWH]"
+                      name="shipper_key_DWH"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn">shipper_key</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\STG TO DWH Shipped Orders\Shipper key.Outputs[Lookup No Match Output]"
+                  description="The Lookup output that handles rows with no matching entries in the reference dataset. Use this output when the NoMatchBehavior property is set to &quot;Send rows with no matching entries to the no match output.&quot;"
+                  exclusionGroup="1"
+                  name="Lookup No Match Output"
+                  synchronousInputId="Package\STG TO DWH Shipped Orders\Shipper key.Inputs[Lookup Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\STG TO DWH Shipped Orders\Shipper key.Outputs[Lookup Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Lookup Error Output"
+                  synchronousInputId="Package\STG TO DWH Shipped Orders\Shipper key.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\STG TO DWH Shipped Orders\Shipper key.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\STG TO DWH Shipped Orders\Shipper key.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\STG TO DWH Shipped Orders\Shipper key.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\STG TO DWH Shipped Orders\Shipper key.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\STG TO DWH Shipped Orders\STG FACT"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="STG FACT"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[STG].[FactOrdersShipped]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\STG TO DWH Shipped Orders\STG FACT.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[LAPTOP-SVQ0715Q.Sales]"
+                  connectionManagerRefId="Package.ConnectionManagers[LAPTOP-SVQ0715Q.Sales]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\STG TO DWH Shipped Orders\STG FACT.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\STG TO DWH Shipped Orders\STG FACT.Outputs[OLE DB Source Output].Columns[Shipper_key]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\STG TO DWH Shipped Orders\STG FACT.Outputs[OLE DB Source Output].ExternalColumns[Shipper_key]"
+                      lineageId="Package\STG TO DWH Shipped Orders\STG FACT.Outputs[OLE DB Source Output].Columns[Shipper_key]"
+                      name="Shipper_key"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\STG TO DWH Shipped Orders\STG FACT.Outputs[OLE DB Source Output].Columns[ShippedDate]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\STG TO DWH Shipped Orders\STG FACT.Outputs[OLE DB Source Output].ExternalColumns[ShippedDate]"
+                      length="10"
+                      lineageId="Package\STG TO DWH Shipped Orders\STG FACT.Outputs[OLE DB Source Output].Columns[ShippedDate]"
+                      name="ShippedDate"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\STG TO DWH Shipped Orders\STG FACT.Outputs[OLE DB Source Output].Columns[NumberOfOrders]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\STG TO DWH Shipped Orders\STG FACT.Outputs[OLE DB Source Output].ExternalColumns[NumberOfOrders]"
+                      lineageId="Package\STG TO DWH Shipped Orders\STG FACT.Outputs[OLE DB Source Output].Columns[NumberOfOrders]"
+                      name="NumberOfOrders"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\STG TO DWH Shipped Orders\STG FACT.Outputs[OLE DB Source Output].ExternalColumns[Shipper_key]"
+                      dataType="i4"
+                      name="Shipper_key" />
+                    <externalMetadataColumn
+                      refId="Package\STG TO DWH Shipped Orders\STG FACT.Outputs[OLE DB Source Output].ExternalColumns[ShippedDate]"
+                      dataType="wstr"
+                      length="10"
+                      name="ShippedDate" />
+                    <externalMetadataColumn
+                      refId="Package\STG TO DWH Shipped Orders\STG FACT.Outputs[OLE DB Source Output].ExternalColumns[NumberOfOrders]"
+                      dataType="i4"
+                      name="NumberOfOrders" />
+                    <externalMetadataColumn
+                      refId="Package\STG TO DWH Shipped Orders\STG FACT.Outputs[OLE DB Source Output].ExternalColumns[src_update_date]"
+                      dataType="dbTimeStamp"
+                      name="src_update_date" />
+                    <externalMetadataColumn
+                      refId="Package\STG TO DWH Shipped Orders\STG FACT.Outputs[OLE DB Source Output].ExternalColumns[create_timestamp]"
+                      dataType="dbTimeStamp"
+                      name="create_timestamp" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\STG TO DWH Shipped Orders\STG FACT.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\STG TO DWH Shipped Orders\STG FACT.Outputs[OLE DB Source Error Output].Columns[Shipper_key]"
+                      dataType="i4"
+                      lineageId="Package\STG TO DWH Shipped Orders\STG FACT.Outputs[OLE DB Source Error Output].Columns[Shipper_key]"
+                      name="Shipper_key" />
+                    <outputColumn
+                      refId="Package\STG TO DWH Shipped Orders\STG FACT.Outputs[OLE DB Source Error Output].Columns[ShippedDate]"
+                      dataType="wstr"
+                      length="10"
+                      lineageId="Package\STG TO DWH Shipped Orders\STG FACT.Outputs[OLE DB Source Error Output].Columns[ShippedDate]"
+                      name="ShippedDate" />
+                    <outputColumn
+                      refId="Package\STG TO DWH Shipped Orders\STG FACT.Outputs[OLE DB Source Error Output].Columns[NumberOfOrders]"
+                      dataType="i4"
+                      lineageId="Package\STG TO DWH Shipped Orders\STG FACT.Outputs[OLE DB Source Error Output].Columns[NumberOfOrders]"
+                      name="NumberOfOrders" />
+                    <outputColumn
+                      refId="Package\STG TO DWH Shipped Orders\STG FACT.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\STG TO DWH Shipped Orders\STG FACT.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\STG TO DWH Shipped Orders\STG FACT.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\STG TO DWH Shipped Orders\STG FACT.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\STG TO DWH Shipped Orders.Paths[Derived Column Output]"
+              endId="Package\STG TO DWH Shipped Orders\Shipper key.Inputs[Lookup Input]"
+              name="Derived Column Output"
+              startId="Package\STG TO DWH Shipped Orders\Date Key.Outputs[Derived Column Output]" />
+            <path
+              refId="Package\STG TO DWH Shipped Orders.Paths[Derived Column Output1]"
+              endId="Package\STG TO DWH Shipped Orders\DWH FACT.Inputs[OLE DB Destination Input]"
+              name="Derived Column Output"
+              startId="Package\STG TO DWH Shipped Orders\Create_timestamp.Outputs[Derived Column Output]" />
+            <path
+              refId="Package\STG TO DWH Shipped Orders.Paths[Lookup Match Output]"
+              endId="Package\STG TO DWH Shipped Orders\DWH FACT LOOKUP.Inputs[Lookup Input]"
+              name="Lookup Match Output"
+              startId="Package\STG TO DWH Shipped Orders\Shipper key.Outputs[Lookup Match Output]" />
+            <path
+              refId="Package\STG TO DWH Shipped Orders.Paths[Lookup No Match Output]"
+              endId="Package\STG TO DWH Shipped Orders\Create_timestamp.Inputs[Derived Column Input]"
+              name="Lookup No Match Output"
+              startId="Package\STG TO DWH Shipped Orders\DWH FACT LOOKUP.Outputs[Lookup No Match Output]" />
+            <path
+              refId="Package\STG TO DWH Shipped Orders.Paths[OLE DB Source Output]"
+              endId="Package\STG TO DWH Shipped Orders\Date Key.Inputs[Derived Column Input]"
+              name="OLE DB Source Output"
+              startId="Package\STG TO DWH Shipped Orders\STG FACT.Outputs[OLE DB Source Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Truncate STG Shipped Orders"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{6493dde0-8442-4e66-b9fe-cc7d0658371b}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Truncate STG Shipped Orders"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2022; © 2022 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{80FD185E-269F-44B1-A1F3-9FC8B7AD143F}"
+          SQLTask:SqlStatementSource="TRUNCATE TABLE stg.FactOrdersShipped" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Update Last Extract"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{31064fb8-0e5c-415f-b9b5-9cc277ba019f}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Update Last Extract"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2022; © 2022 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{80FD185E-269F-44B1-A1F3-9FC8B7AD143F}"
+          SQLTask:BypassPrepare="False"
+          SQLTask:SqlStatementSource="update STG.Conf_Table set last_extract_date = (select max(src_update_date) from stg.FactOrdersShipped) where table_name = 'ShipperFact'" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{1936ECAF-9944-492D-AFA8-BF39E0D4375C}"
+      DTS:From="Package\Truncate STG Shipped Orders"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\Last Extract" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 1]"
+      DTS:CreationName=""
+      DTS:DTSID="{4fe286b3-eed7-41f6-a0a0-f9fd5187f169}"
+      DTS:From="Package\Load STG Shipped Orders"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 1"
+      DTS:To="Package\STG TO DWH Shipped Orders" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 2]"
+      DTS:CreationName=""
+      DTS:DTSID="{7E9D088A-40DE-43A1-8E62-346A039CE7EB}"
+      DTS:From="Package\Last Extract"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 2"
+      DTS:To="Package\Load STG Shipped Orders" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 3]"
+      DTS:CreationName=""
+      DTS:DTSID="{0fa73a60-2dcb-4c42-899f-67ecf73222a4}"
+      DTS:From="Package\STG TO DWH Shipped Orders"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 3"
+      DTS:To="Package\Update Last Extract" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="8">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="132.8,41.6"
+          Id="Package\Last Extract"
+          TopLeft="209.166655238304,119.599999168317" />
+        <NodeLayout
+          Size="201.6,41.6"
+          Id="Package\Load STG Shipped Orders"
+          TopLeft="173.809524524848,237.458822862478" />
+        <NodeLayout
+          Size="217.6,41.6"
+          Id="Package\STG TO DWH Shipped Orders"
+          TopLeft="144.285715884295,356.384312719698" />
+        <NodeLayout
+          Size="218.4,41.6"
+          Id="Package\Truncate STG Shipped Orders"
+          TopLeft="169.285714518355,37.0588235495206" />
+        <NodeLayout
+          Size="170.4,41.6"
+          Id="Package\Update Last Extract"
+          TopLeft="139.166669720813,442.007842037709" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="277.02618487833,78.6588235495206">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,40.941175618796"
+              Start="0,0"
+              End="0,33.441175618796">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,33.441175618796" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 1]"
+          TopLeft="274.609524524848,279.058822862478">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-21.5238086405533,77.3254898572197"
+              Start="0,0"
+              End="-21.5238086405533,69.8254898572197">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,34.6627449286098" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,34.6627449286098"
+                    Point2="0,38.6627449286098"
+                    Point3="-4,38.6627449286098" />
+                  <mssgle:LineSegment
+                    End="-17.5238086405533,38.6627449286098" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-17.5238086405533,38.6627449286098"
+                    Point2="-21.5238086405533,38.6627449286098"
+                    Point3="-21.5238086405533,42.6627449286098" />
+                  <mssgle:LineSegment
+                    End="-21.5238086405533,69.8254898572197" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 2]"
+          TopLeft="275.088089881576,161.199999168317">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,76.2588236941615"
+              Start="0,0"
+              End="0,68.7588236941615">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,68.7588236941615" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 3]"
+          TopLeft="253.085715884295,397.984312719698">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-28.7190461634813,44.0235293180115"
+              Start="0,0"
+              End="-28.7190461634813,36.5235293180115">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,18.0117646590057" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,18.0117646590057"
+                    Point2="0,22.0117646590057"
+                    Point3="-4,22.0117646590057" />
+                  <mssgle:LineSegment
+                    End="-24.7190461634813,22.0117646590057" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-24.7190461634813,22.0117646590057"
+                    Point2="-28.7190461634813,22.0117646590057"
+                    Point3="-28.7190461634813,26.0117646590057" />
+                  <mssgle:LineSegment
+                    End="-28.7190461634813,36.5235293180115" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\Load STG Shipped Orders">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="129.6,41.6"
+          Id="Package\Load STG Shipped Orders\STG FACT"
+          TopLeft="372.499979647498,355.33333086239" />
+        <NodeLayout
+          Size="161.6,41.6"
+          Id="Package\Load STG Shipped Orders\Number of Orders"
+          TopLeft="369.999979784092,179.399998752475" />
+        <NodeLayout
+          Size="130.4,41.6"
+          Id="Package\Load STG Shipped Orders\SRC FACT"
+          TopLeft="359.999994635582,37.9999994337559" />
+        <EdgeLayout
+          Id="Package\Load STG Shipped Orders.Paths[OLE DB Source Output]"
+          TopLeft="425.199994635582,79.5999994337559">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="25.5999851485103,99.799999318719"
+              Start="0,0"
+              End="25.5999851485103,92.299999318719">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,45.8999996593595" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,45.8999996593595"
+                    Point2="0,49.8999996593595"
+                    Point3="4,49.8999996593595" />
+                  <mssgle:LineSegment
+                    End="21.5999851485103,49.8999996593595" />
+                  <mssgle:CubicBezierSegment
+                    Point1="21.5999851485103,49.8999996593595"
+                    Point2="25.5999851485103,49.8999996593595"
+                    Point3="25.5999851485103,53.8999996593595" />
+                  <mssgle:LineSegment
+                    End="25.5999851485103,92.299999318719" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Load STG Shipped Orders.Paths[Aggregate Output 1]"
+          TopLeft="450.799979784092,220.999998752475">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-13.5000001365941,134.333332109915"
+              Start="0,0"
+              End="-13.5000001365941,126.833332109915">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,63.1666660549574" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,63.1666660549574"
+                    Point2="0,67.1666660549574"
+                    Point3="-4,67.1666660549574" />
+                  <mssgle:LineSegment
+                    End="-9.50000013659405,67.1666660549574" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-9.50000013659405,67.1666660549574"
+                    Point2="-13.5000001365941,67.1666660549574"
+                    Point3="-13.5000001365941,71.1666660549574" />
+                  <mssgle:LineSegment
+                    End="-13.5000001365941,126.833332109915" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Load STG Shipped Orders\STG FACT">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Load STG Shipped Orders\SRC FACT">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <TaskHost
+    design-time-name="Package\STG TO DWH Shipped Orders">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="179.2,41.6"
+          Id="Package\STG TO DWH Shipped Orders\DWH FACT LOOKUP"
+          TopLeft="252.999996230006,292.99999563396" />
+        <NodeLayout
+          Size="120.8,41.6"
+          Id="Package\STG TO DWH Shipped Orders\Date Key"
+          TopLeft="157.999997645617,150.999997749925" />
+        <NodeLayout
+          Size="129.6,41.6"
+          Id="Package\STG TO DWH Shipped Orders\STG FACT"
+          TopLeft="266.99999602139,42.9999993592501" />
+        <NodeLayout
+          Size="133.6,41.6"
+          Id="Package\STG TO DWH Shipped Orders\Shipper key"
+          TopLeft="259.714285602983,225.91764530126" />
+        <NodeLayout
+          Size="132.8,41.6"
+          Id="Package\STG TO DWH Shipped Orders\DWH FACT"
+          TopLeft="218.999996736646,475.999992907047" />
+        <NodeLayout
+          Size="163.2,41.6"
+          Id="Package\STG TO DWH Shipped Orders\Create_timestamp"
+          TopLeft="144.999997839332,376.999994382262" />
+        <EdgeLayout
+          Id="Package\STG TO DWH Shipped Orders.Paths[OLE DB Source Output]"
+          TopLeft="331.79999602139,84.5999993592501">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-113.399998375773,66.3999983906746"
+              Start="0,0"
+              End="-113.399998375773,58.8999983906746">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,29.1999991953373" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,29.1999991953373"
+                    Point2="0,33.1999991953373"
+                    Point3="-4,33.1999991953373" />
+                  <mssgle:LineSegment
+                    End="-109.399998375773,33.1999991953373" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-109.399998375773,33.1999991953373"
+                    Point2="-113.399998375773,33.1999991953373"
+                    Point3="-113.399998375773,37.1999991953373" />
+                  <mssgle:LineSegment
+                    End="-113.399998375773,58.8999983906746" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\STG TO DWH Shipped Orders.Paths[Lookup No Match Output]"
+          TopLeft="342.599996230006,334.59999563396">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-115.999998390675,42.3999987483024"
+              Start="0,0"
+              End="-115.999998390675,34.8999987483024">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,17.1999993741512" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,17.1999993741512"
+                    Point2="0,21.1999993741512"
+                    Point3="-4,21.1999993741512" />
+                  <mssgle:LineSegment
+                    End="-111.999998390675,21.1999993741512" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-111.999998390675,21.1999993741512"
+                    Point2="-115.999998390675,21.1999993741512"
+                    Point3="-115.999998390675,25.1999993741512" />
+                  <mssgle:LineSegment
+                    End="-115.999998390675,34.8999987483024" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-113.806385914087,26.1999993741512,111.6127734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\STG TO DWH Shipped Orders.Paths[Lookup Match Output]"
+          TopLeft="326.514285602983,267.51764530126">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="16.0857106270235,25.4823503327"
+              Start="0,0"
+              End="16.0857106270235,17.9823503327">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,8.74117516635002" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,8.74117516635002"
+                    Point2="0,12.74117516635"
+                    Point3="4,12.74117516635" />
+                  <mssgle:LineSegment
+                    End="12.0857106270235,12.74117516635" />
+                  <mssgle:CubicBezierSegment
+                    Point1="12.0857106270235,12.74117516635"
+                    Point2="16.0857106270235,12.74117516635"
+                    Point3="16.0857106270235,16.74117516635" />
+                  <mssgle:LineSegment
+                    End="16.0857106270235,17.9823503327" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-40.1485314052383,17.74117516635,96.3827734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\STG TO DWH Shipped Orders.Paths[Derived Column Output1]"
+          TopLeft="226.599997839332,418.599994382262">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="58.7999988973142,57.3999985247849"
+              Start="0,0"
+              End="58.7999988973142,49.8999985247849">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,24.6999992623925" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,24.6999992623925"
+                    Point2="0,28.6999992623925"
+                    Point3="4,28.6999992623925" />
+                  <mssgle:LineSegment
+                    End="54.7999988973142,28.6999992623925" />
+                  <mssgle:CubicBezierSegment
+                    Point1="54.7999988973142,28.6999992623925"
+                    Point2="58.7999988973142,28.6999992623925"
+                    Point3="58.7999988973142,32.6999992623925" />
+                  <mssgle:LineSegment
+                    End="58.7999988973142,49.8999985247849" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\STG TO DWH Shipped Orders.Paths[Derived Column Output]"
+          TopLeft="218.399997645617,192.599997749925">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="108.114287957366,33.3176475513352"
+              Start="0,0"
+              End="108.114287957366,25.8176475513352">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,12.6588237756676" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,12.6588237756676"
+                    Point2="0,16.6588237756676"
+                    Point3="4,16.6588237756676" />
+                  <mssgle:LineSegment
+                    End="104.114287957366,16.6588237756676" />
+                  <mssgle:CubicBezierSegment
+                    Point1="104.114287957366,16.6588237756676"
+                    Point2="108.114287957366,16.6588237756676"
+                    Point3="108.114287957366,20.6588237756676" />
+                  <mssgle:LineSegment
+                    End="108.114287957366,25.8176475513352" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\STG TO DWH Shipped Orders\DWH FACT LOOKUP">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:string">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string">[DWH].[FactOrdersShipped]</Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:string">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\STG TO DWH Shipped Orders\STG FACT">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\STG TO DWH Shipped Orders\Shipper key">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:string">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string">[DWH].[Shippers]</Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:string">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\STG TO DWH Shipped Orders\DWH FACT">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

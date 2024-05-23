@@ -1,0 +1,2891 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="5/16/2024 10:05:35 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="DESKTOP-7BSQ505"
+  DTS:CreatorName="DESKTOP-7BSQ505\101"
+  DTS:DTSID="{04D5A3E4-0024-4477-A9AF-066AC7A5DCDB}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="16.0.5397.1"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="Package"
+  DTS:PackageType="5"
+  DTS:VersionBuild="202"
+  DTS:VersionGUID="{EEFD0D3C-8E74-4E7F-98CD-9BC28730D5FB}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[C:\Users\101\Downloads\shahd\vs\projects\study dwh\person data.xlsx]"
+      DTS:CreationName="ADO.NET:System.Data.OleDb.OleDbConnection, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089"
+      DTS:DTSID="{9B419653-C9B7-4C02-9D31-FB1C4DEB6FE2}"
+      DTS:ObjectName="C:\Users\101\Downloads\shahd\vs\projects\study dwh\person data.xlsx">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Data Source=C:\Users\101\Downloads\shahd\vs\projects\study dwh\person data.xlsx;Provider=Microsoft.ACE.OLEDB.12.0;Extended Properties=Excel 12.0;Jet OLEDB:Encrypt Database=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[DESKTOP-7BSQ505.SalesDB]"
+      DTS:CreationName="ADO.NET:System.Data.OleDb.OleDbConnection, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089"
+      DTS:DTSID="{D80ABDBA-AF29-4A52-B13A-6137C6812895}"
+      DTS:ObjectName="DESKTOP-7BSQ505.SalesDB">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Data Source=DESKTOP-7BSQ505;Initial Catalog=SalesDB;Provider=SQLOLEDB.1;Integrated Security=SSPI;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[DESKTOP-7BSQ505.SalesDB 1]"
+      DTS:CreationName="ADO.NET:System.Data.OleDb.OleDbConnection, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089"
+      DTS:DTSID="{C2C6D4D2-2168-470C-9023-A0B3E5E07289}"
+      DTS:ObjectName="DESKTOP-7BSQ505.SalesDB 1">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Data Source=DESKTOP-7BSQ505;Initial Catalog=SalesDB;Provider=SQLOLEDB.1;Integrated Security=SSPI;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[DESKTOP-7BSQ505.SalesDB 2]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{E061F308-A01F-4304-A24E-39506431F13A}"
+      DTS:ObjectName="DESKTOP-7BSQ505.SalesDB 2">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectRetryCount="1"
+          DTS:ConnectRetryInterval="5"
+          DTS:ConnectionString="Data Source=DESKTOP-7BSQ505;Initial Catalog=SalesDB;Provider=SQLOLEDB.1;Integrated Security=SSPI;Application Name=SSIS-Package-{E061F308-A01F-4304-A24E-39506431F13A}DESKTOP-7BSQ505.SalesDB 2;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[LAPTOP-SVQ0715Q.Sales]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{9335B423-34BC-4A90-9FBA-BD1D7277F902}"
+      DTS:ObjectName="LAPTOP-SVQ0715Q.Sales">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectRetryCount="1"
+          DTS:ConnectRetryInterval="5"
+          DTS:ConnectionString="Data Source=LAPTOP-SVQ0715Q;Initial Catalog=Sales;Provider=SQLOLEDB.1;Integrated Security=SSPI;Application Name=SSIS-Package-{9335B423-34BC-4A90-9FBA-BD1D7277F902}LAPTOP-SVQ0715Q.Sales;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{AEFFE287-DEFD-4067-91E0-841F72C99B5A}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="last_extract_date">
+      <DTS:VariableValue
+        DTS:DataType="7">1/1/1950 3:33:00 AM</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{1B06C907-0254-4235-8F9B-BCA7EAEE72FA}"
+      DTS:EvaluateAsExpression="True"
+      DTS:Expression="&quot;SELECT  * FROM Sales.Employees WHERE last_update &gt; '&quot; + (DT_WSTR, 50) @[User::last_extract_date]  + &quot;';&quot;"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="update_ConfTable">
+      <DTS:VariableValue
+        DTS:DataType="8">SELECT  * FROM Sales.Employees WHERE last_update &gt; '1/1/1950 3:33:00 AM';</DTS:VariableValue>
+    </DTS:Variable>
+  </DTS:Variables>
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\get last data"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{40DAB051-4265-45A2-95CF-A4C85CFD10EB}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="get last data"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2022; © 2022 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{9335B423-34BC-4A90-9FBA-BD1D7277F902}"
+          SQLTask:SqlStatementSource="select last_extract_date&#xA;from STG.Conf_Table&#xA;where table_name='Employees';"
+          SQLTask:ResultType="ResultSetType_SingleRow" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+          <SQLTask:ResultBinding
+            SQLTask:ResultName="0"
+            SQLTask:DtsVariableName="User::last_extract_date" />
+        </SQLTask:SqlTaskData>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\load in DWH Employees"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{51E5C229-AAB5-4993-BE06-5CAE11B770DF}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="load in DWH Employees"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\load in DWH Employees\add new records"
+              componentClassID="Microsoft.DerivedColumn"
+              contactInfo="Derived Column;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Creates new column values by applying expressions to transformation input columns. Create new columns or overwrite existing ones. For example, concatenate the values from the 'first name' and 'last name' column to make a 'full name' column."
+              name="add new records"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\load in DWH Employees\add new records.Inputs[Derived Column Input]"
+                  description="Input to the Derived Column Transformation"
+                  name="Derived Column Input">
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\load in DWH Employees\add new records.Outputs[Derived Column Output]"
+                  description="Default Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  name="Derived Column Output"
+                  synchronousInputId="Package\load in DWH Employees\add new records.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\load in DWH Employees\add new records.Outputs[Derived Column Output].Columns[newData]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\load in DWH Employees\add new records.Outputs[Derived Column Output].Columns[newData]"
+                      name="newData"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">1</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">1</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\load in DWH Employees\add new records.Outputs[Derived Column Output].Columns[createTS]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\load in DWH Employees\add new records.Outputs[Derived Column Output].Columns[createTS]"
+                      name="createTS"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">[GETDATE]()</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">GETDATE()</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\load in DWH Employees\add new records.Outputs[Derived Column Output].Columns[updateTS]"
+                      dataType="dbDate"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\load in DWH Employees\add new records.Outputs[Derived Column Output].Columns[updateTS]"
+                      name="updateTS"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">(DT_DBDATE)"9999-12-31"</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">(DT_DBDATE)"9999-12-31"</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\load in DWH Employees\add new records.Outputs[Derived Column Error Output]"
+                  description="Error Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Derived Column Error Output"
+                  synchronousInputId="Package\load in DWH Employees\add new records.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\load in DWH Employees\add new records.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\load in DWH Employees\add new records.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\load in DWH Employees\add new records.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\load in DWH Employees\add new records.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\load in DWH Employees\Check Changed data"
+              componentClassID="Microsoft.ConditionalSplit"
+              contactInfo="Conditional Split;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Routes data rows to different outputs depending on the content of the data. Use conditions (SSIS expressions) to specify which rows are routed. For example, separate records that need to be cleaned from those that are ready to be loaded or route only a subset of records."
+              name="Check Changed data"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\load in DWH Employees\Check Changed data.Inputs[Conditional Split Input]"
+                  description="Input to the Conditional Split Transformation"
+                  name="Conditional Split Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\load in DWH Employees\Check Changed data.Inputs[Conditional Split Input].Columns[Title_STG]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="Title_STG"
+                      lineageId="Package\load in DWH Employees\STG Employees.Outputs[OLE DB Source Output].Columns[Title_STG]" />
+                    <inputColumn
+                      refId="Package\load in DWH Employees\Check Changed data.Inputs[Conditional Split Input].Columns[Address_STG]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="60"
+                      cachedName="Address_STG"
+                      lineageId="Package\load in DWH Employees\STG Employees.Outputs[OLE DB Source Output].Columns[Address_STG]" />
+                    <inputColumn
+                      refId="Package\load in DWH Employees\Check Changed data.Inputs[Conditional Split Input].Columns[City_STG]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="15"
+                      cachedName="City_STG"
+                      lineageId="Package\load in DWH Employees\STG Employees.Outputs[OLE DB Source Output].Columns[City_STG]" />
+                    <inputColumn
+                      refId="Package\load in DWH Employees\Check Changed data.Inputs[Conditional Split Input].Columns[Salary_STG]"
+                      cachedDataType="i4"
+                      cachedName="Salary_STG"
+                      lineageId="Package\load in DWH Employees\STG Employees.Outputs[OLE DB Source Output].Columns[Salary_STG]" />
+                    <inputColumn
+                      refId="Package\load in DWH Employees\Check Changed data.Inputs[Conditional Split Input].Columns[Address_dim]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="60"
+                      cachedName="Address_dim"
+                      lineageId="Package\load in DWH Employees\DWH Employees lookup.Outputs[Lookup Match Output].Columns[Address_dim]" />
+                    <inputColumn
+                      refId="Package\load in DWH Employees\Check Changed data.Inputs[Conditional Split Input].Columns[City_dim]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="15"
+                      cachedName="City_dim"
+                      lineageId="Package\load in DWH Employees\DWH Employees lookup.Outputs[Lookup Match Output].Columns[City_dim]" />
+                    <inputColumn
+                      refId="Package\load in DWH Employees\Check Changed data.Inputs[Conditional Split Input].Columns[Salary_dim]"
+                      cachedDataType="i4"
+                      cachedName="Salary_dim"
+                      lineageId="Package\load in DWH Employees\DWH Employees lookup.Outputs[Lookup Match Output].Columns[Salary_dim]" />
+                    <inputColumn
+                      refId="Package\load in DWH Employees\Check Changed data.Inputs[Conditional Split Input].Columns[Title_dim]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="Title_dim"
+                      lineageId="Package\load in DWH Employees\DWH Employees lookup.Outputs[Lookup Match Output].Columns[Title_dim]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\load in DWH Employees\Check Changed data.Outputs[changed]"
+                  description="Output 1 of the Conditional Split Transformation"
+                  errorOrTruncationOperation="Computation"
+                  errorRowDisposition="FailComponent"
+                  exclusionGroup="1"
+                  name="changed"
+                  synchronousInputId="Package\load in DWH Employees\Check Changed data.Inputs[Conditional Split Input]"
+                  truncationRowDisposition="FailComponent">
+                  <properties>
+                    <property
+                      containsID="true"
+                      dataType="System.String"
+                      description="Specifies the expression. This expression version uses lineage identifiers instead of column names."
+                      name="Expression">#{Package\load in DWH Employees\DWH Employees lookup.Outputs[Lookup Match Output].Columns[Address_dim]} != #{Package\load in DWH Employees\STG Employees.Outputs[OLE DB Source Output].Columns[Address_STG]} || #{Package\load in DWH Employees\DWH Employees lookup.Outputs[Lookup Match Output].Columns[City_dim]} != #{Package\load in DWH Employees\STG Employees.Outputs[OLE DB Source Output].Columns[City_STG]} || #{Package\load in DWH Employees\DWH Employees lookup.Outputs[Lookup Match Output].Columns[Salary_dim]} != #{Package\load in DWH Employees\STG Employees.Outputs[OLE DB Source Output].Columns[Salary_STG]} || #{Package\load in DWH Employees\DWH Employees lookup.Outputs[Lookup Match Output].Columns[Title_dim]} != #{Package\load in DWH Employees\STG Employees.Outputs[OLE DB Source Output].Columns[Title_STG]}</property>
+                    <property
+                      containsID="true"
+                      dataType="System.String"
+                      description="Specifies the friendly version of the expression. This expression version uses column names."
+                      expressionType="Notify"
+                      name="FriendlyExpression">Address_dim != Address_STG || City_dim != City_STG || Salary_dim != Salary_STG || Title_dim != Title_STG</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the position of the condition in the list of conditions that the transformation evaluates. The evaluation order is from the lowest to the highest value."
+                      name="EvaluationOrder">0</property>
+                  </properties>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\load in DWH Employees\Check Changed data.Outputs[no change]"
+                  description="Default Output of the Conditional Split Transformation"
+                  exclusionGroup="1"
+                  name="no change"
+                  synchronousInputId="Package\load in DWH Employees\Check Changed data.Inputs[Conditional Split Input]">
+                  <properties>
+                    <property
+                      dataType="System.Boolean"
+                      name="IsDefaultOut">true</property>
+                  </properties>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\load in DWH Employees\Check Changed data.Outputs[Conditional Split Error Output]"
+                  description="Error Output of the Conditional Split Transformation"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Conditional Split Error Output"
+                  synchronousInputId="Package\load in DWH Employees\Check Changed data.Inputs[Conditional Split Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\load in DWH Employees\Check Changed data.Outputs[Conditional Split Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\load in DWH Employees\Check Changed data.Outputs[Conditional Split Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\load in DWH Employees\Check Changed data.Outputs[Conditional Split Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\load in DWH Employees\Check Changed data.Outputs[Conditional Split Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\load in DWH Employees\DWH Employees"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="DWH Employees"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[DWH].[Employees]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\load in DWH Employees\DWH Employees.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[LAPTOP-SVQ0715Q.Sales]"
+                  connectionManagerRefId="Package.ConnectionManagers[LAPTOP-SVQ0715Q.Sales]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\load in DWH Employees\DWH Employees.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\load in DWH Employees\DWH Employees.Inputs[OLE DB Destination Input].Columns[EmployeeID_STG]"
+                      cachedDataType="i4"
+                      cachedName="EmployeeID_STG"
+                      externalMetadataColumnId="Package\load in DWH Employees\DWH Employees.Inputs[OLE DB Destination Input].ExternalColumns[EmployeeID]"
+                      lineageId="Package\load in DWH Employees\Union All.Outputs[Union All Output 1].Columns[EmployeeID_STG]" />
+                    <inputColumn
+                      refId="Package\load in DWH Employees\DWH Employees.Inputs[OLE DB Destination Input].Columns[LastName_STG]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="30"
+                      cachedName="LastName_STG"
+                      externalMetadataColumnId="Package\load in DWH Employees\DWH Employees.Inputs[OLE DB Destination Input].ExternalColumns[LastName]"
+                      lineageId="Package\load in DWH Employees\Union All.Outputs[Union All Output 1].Columns[LastName_STG]" />
+                    <inputColumn
+                      refId="Package\load in DWH Employees\DWH Employees.Inputs[OLE DB Destination Input].Columns[FirstName_STG]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="30"
+                      cachedName="FirstName_STG"
+                      externalMetadataColumnId="Package\load in DWH Employees\DWH Employees.Inputs[OLE DB Destination Input].ExternalColumns[FirstName]"
+                      lineageId="Package\load in DWH Employees\Union All.Outputs[Union All Output 1].Columns[FirstName_STG]" />
+                    <inputColumn
+                      refId="Package\load in DWH Employees\DWH Employees.Inputs[OLE DB Destination Input].Columns[Title_STG]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="Title_STG"
+                      externalMetadataColumnId="Package\load in DWH Employees\DWH Employees.Inputs[OLE DB Destination Input].ExternalColumns[Title]"
+                      lineageId="Package\load in DWH Employees\Union All.Outputs[Union All Output 1].Columns[Title_STG]" />
+                    <inputColumn
+                      refId="Package\load in DWH Employees\DWH Employees.Inputs[OLE DB Destination Input].Columns[HireDate_STG]"
+                      cachedDataType="wstr"
+                      cachedLength="10"
+                      cachedName="HireDate_STG"
+                      externalMetadataColumnId="Package\load in DWH Employees\DWH Employees.Inputs[OLE DB Destination Input].ExternalColumns[HireDate]"
+                      lineageId="Package\load in DWH Employees\Union All.Outputs[Union All Output 1].Columns[HireDate_STG]" />
+                    <inputColumn
+                      refId="Package\load in DWH Employees\DWH Employees.Inputs[OLE DB Destination Input].Columns[Address_STG]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="60"
+                      cachedName="Address_STG"
+                      externalMetadataColumnId="Package\load in DWH Employees\DWH Employees.Inputs[OLE DB Destination Input].ExternalColumns[Address]"
+                      lineageId="Package\load in DWH Employees\Union All.Outputs[Union All Output 1].Columns[Address_STG]" />
+                    <inputColumn
+                      refId="Package\load in DWH Employees\DWH Employees.Inputs[OLE DB Destination Input].Columns[City_STG]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="15"
+                      cachedName="City_STG"
+                      externalMetadataColumnId="Package\load in DWH Employees\DWH Employees.Inputs[OLE DB Destination Input].ExternalColumns[City]"
+                      lineageId="Package\load in DWH Employees\Union All.Outputs[Union All Output 1].Columns[City_STG]" />
+                    <inputColumn
+                      refId="Package\load in DWH Employees\DWH Employees.Inputs[OLE DB Destination Input].Columns[HomePhone_STG]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="24"
+                      cachedName="HomePhone_STG"
+                      externalMetadataColumnId="Package\load in DWH Employees\DWH Employees.Inputs[OLE DB Destination Input].ExternalColumns[HomePhone]"
+                      lineageId="Package\load in DWH Employees\Union All.Outputs[Union All Output 1].Columns[HomePhone_STG]" />
+                    <inputColumn
+                      refId="Package\load in DWH Employees\DWH Employees.Inputs[OLE DB Destination Input].Columns[Salary_STG]"
+                      cachedDataType="i4"
+                      cachedName="Salary_STG"
+                      externalMetadataColumnId="Package\load in DWH Employees\DWH Employees.Inputs[OLE DB Destination Input].ExternalColumns[Salary]"
+                      lineageId="Package\load in DWH Employees\Union All.Outputs[Union All Output 1].Columns[Salary_STG]" />
+                    <inputColumn
+                      refId="Package\load in DWH Employees\DWH Employees.Inputs[OLE DB Destination Input].Columns[newData]"
+                      cachedDataType="i4"
+                      cachedName="newData"
+                      externalMetadataColumnId="Package\load in DWH Employees\DWH Employees.Inputs[OLE DB Destination Input].ExternalColumns[is_last]"
+                      lineageId="Package\load in DWH Employees\add new records.Outputs[Derived Column Output].Columns[newData]" />
+                    <inputColumn
+                      refId="Package\load in DWH Employees\DWH Employees.Inputs[OLE DB Destination Input].Columns[createTS]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="createTS"
+                      externalMetadataColumnId="Package\load in DWH Employees\DWH Employees.Inputs[OLE DB Destination Input].ExternalColumns[create_timestamp]"
+                      lineageId="Package\load in DWH Employees\add new records.Outputs[Derived Column Output].Columns[createTS]" />
+                    <inputColumn
+                      refId="Package\load in DWH Employees\DWH Employees.Inputs[OLE DB Destination Input].Columns[updateTS]"
+                      cachedDataType="dbDate"
+                      cachedName="updateTS"
+                      externalMetadataColumnId="Package\load in DWH Employees\DWH Employees.Inputs[OLE DB Destination Input].ExternalColumns[update_timestamp]"
+                      lineageId="Package\load in DWH Employees\add new records.Outputs[Derived Column Output].Columns[updateTS]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\load in DWH Employees\DWH Employees.Inputs[OLE DB Destination Input].ExternalColumns[employee_key]"
+                      dataType="i4"
+                      name="employee_key" />
+                    <externalMetadataColumn
+                      refId="Package\load in DWH Employees\DWH Employees.Inputs[OLE DB Destination Input].ExternalColumns[EmployeeID]"
+                      dataType="i4"
+                      name="EmployeeID" />
+                    <externalMetadataColumn
+                      refId="Package\load in DWH Employees\DWH Employees.Inputs[OLE DB Destination Input].ExternalColumns[LastName]"
+                      codePage="1252"
+                      dataType="str"
+                      length="30"
+                      name="LastName" />
+                    <externalMetadataColumn
+                      refId="Package\load in DWH Employees\DWH Employees.Inputs[OLE DB Destination Input].ExternalColumns[FirstName]"
+                      codePage="1252"
+                      dataType="str"
+                      length="30"
+                      name="FirstName" />
+                    <externalMetadataColumn
+                      refId="Package\load in DWH Employees\DWH Employees.Inputs[OLE DB Destination Input].ExternalColumns[Title]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="Title" />
+                    <externalMetadataColumn
+                      refId="Package\load in DWH Employees\DWH Employees.Inputs[OLE DB Destination Input].ExternalColumns[HireDate]"
+                      dataType="wstr"
+                      length="10"
+                      name="HireDate" />
+                    <externalMetadataColumn
+                      refId="Package\load in DWH Employees\DWH Employees.Inputs[OLE DB Destination Input].ExternalColumns[Address]"
+                      codePage="1252"
+                      dataType="str"
+                      length="60"
+                      name="Address" />
+                    <externalMetadataColumn
+                      refId="Package\load in DWH Employees\DWH Employees.Inputs[OLE DB Destination Input].ExternalColumns[City]"
+                      codePage="1252"
+                      dataType="str"
+                      length="15"
+                      name="City" />
+                    <externalMetadataColumn
+                      refId="Package\load in DWH Employees\DWH Employees.Inputs[OLE DB Destination Input].ExternalColumns[HomePhone]"
+                      codePage="1252"
+                      dataType="str"
+                      length="24"
+                      name="HomePhone" />
+                    <externalMetadataColumn
+                      refId="Package\load in DWH Employees\DWH Employees.Inputs[OLE DB Destination Input].ExternalColumns[Salary]"
+                      dataType="i4"
+                      name="Salary" />
+                    <externalMetadataColumn
+                      refId="Package\load in DWH Employees\DWH Employees.Inputs[OLE DB Destination Input].ExternalColumns[create_timestamp]"
+                      dataType="dbTimeStamp"
+                      name="create_timestamp" />
+                    <externalMetadataColumn
+                      refId="Package\load in DWH Employees\DWH Employees.Inputs[OLE DB Destination Input].ExternalColumns[is_last]"
+                      dataType="bool"
+                      name="is_last" />
+                    <externalMetadataColumn
+                      refId="Package\load in DWH Employees\DWH Employees.Inputs[OLE DB Destination Input].ExternalColumns[update_timestamp]"
+                      dataType="dbTimeStamp"
+                      name="update_timestamp" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\load in DWH Employees\DWH Employees.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\load in DWH Employees\DWH Employees.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\load in DWH Employees\DWH Employees.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\load in DWH Employees\DWH Employees.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\load in DWH Employees\DWH Employees.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\load in DWH Employees\DWH Employees.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\load in DWH Employees\DWH Employees lookup"
+              componentClassID="Microsoft.Lookup"
+              contactInfo="Lookup;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;6"
+              description="Joins additional columns to the data flow by looking up values in a table. For example, join to the 'employee id' column the employees table to get 'hire date' and 'employee name'. We recommend this transformation when the lookup table can fit into memory."
+              name="DWH Employees lookup"
+              usesDispositions="true"
+              version="6">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the SQL statement that generates the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from DWH.Employees where is_last=1</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies a SQL statement that uses parameters to generate the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommandParam"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from (select * from DWH.Employees where is_last=1) [refTable]
+where [refTable].[EmployeeID] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the type of connection used to access the reference dataset."
+                  name="ConnectionType"
+                  typeConverter="LookupConnectionType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the cache type of the lookup table."
+                  name="CacheType"
+                  typeConverter="CacheType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies how the Lookup transformation handles rows without matching entries in the reference data set."
+                  name="NoMatchBehavior"
+                  typeConverter="LookupNoMatchBehavior">1</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the percentage of the cache that is allocated for rows with no matching entries in the reference dataset."
+                  name="NoMatchCachePercentage">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Maximum Memory Usage for Reference Cache on a 32 bit platform."
+                  name="MaxMemoryUsage">25</property>
+                <property
+                  dataType="System.Int64"
+                  description="Maximum Memory Usage for Reference Cache on a 64 bit platform."
+                  name="MaxMemoryUsage64">25</property>
+                <property
+                  dataType="System.String"
+                  description="Indicates whether to reference metadata in an XML format."
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="employee_key" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="EmployeeID" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="LastName" dataType="DT_STR" length="30" precision="0" scale="0" codePage="1252"/&gt;&lt;referenceColumn name="FirstName" dataType="DT_STR" length="30" precision="0" scale="0" codePage="1252"/&gt;&lt;referenceColumn name="Title" dataType="DT_STR" length="50" precision="0" scale="0" codePage="1252"/&gt;&lt;referenceColumn name="HireDate" dataType="DT_WSTR" length="10" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Address" dataType="DT_STR" length="60" precision="0" scale="0" codePage="1252"/&gt;&lt;referenceColumn name="City" dataType="DT_STR" length="15" precision="0" scale="0" codePage="1252"/&gt;&lt;referenceColumn name="HomePhone" dataType="DT_STR" length="24" precision="0" scale="0" codePage="1252"/&gt;&lt;referenceColumn name="Salary" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="create_timestamp" dataType="DT_DBTIMESTAMP" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="is_last" dataType="DT_BOOL" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="update_timestamp" dataType="DT_DBTIMESTAMP" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                <property
+                  containsID="true"
+                  dataType="System.String"
+                  description="Specifies the list of lineage identifiers that map to the parameters that the SQL statement in the SQLCommand property uses. Entries in the list are separated by semicolons."
+                  name="ParameterMap">#{Package\load in DWH Employees\STG Employees.Outputs[OLE DB Source Output].Columns[EmployeeID_STG]};</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Determines whether duplicate keys in the reference data should be treated as errors when full cache mode is used."
+                  name="TreatDuplicateKeysAsError">false</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\load in DWH Employees\DWH Employees lookup.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[LAPTOP-SVQ0715Q.Sales]"
+                  connectionManagerRefId="Package.ConnectionManagers[LAPTOP-SVQ0715Q.Sales]"
+                  description="Connection manager used to access lookup data."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\load in DWH Employees\DWH Employees lookup.Inputs[Lookup Input]"
+                  name="Lookup Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\load in DWH Employees\DWH Employees lookup.Inputs[Lookup Input].Columns[EmployeeID_STG]"
+                      cachedDataType="i4"
+                      cachedName="EmployeeID_STG"
+                      lineageId="Package\load in DWH Employees\STG Employees.Outputs[OLE DB Source Output].Columns[EmployeeID_STG]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">EmployeeID</property>
+                        <property
+                          dataType="System.Null"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\load in DWH Employees\DWH Employees lookup.Outputs[Lookup Match Output]"
+                  errorOrTruncationOperation="Lookup"
+                  exclusionGroup="1"
+                  name="Lookup Match Output"
+                  synchronousInputId="Package\load in DWH Employees\DWH Employees lookup.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\load in DWH Employees\DWH Employees lookup.Outputs[Lookup Match Output].Columns[EmployeeID_dim]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Copy Column"
+                      lineageId="Package\load in DWH Employees\DWH Employees lookup.Outputs[Lookup Match Output].Columns[EmployeeID_dim]"
+                      name="EmployeeID_dim"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn">EmployeeID</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\load in DWH Employees\DWH Employees lookup.Outputs[Lookup Match Output].Columns[Address_dim]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Copy Column"
+                      length="60"
+                      lineageId="Package\load in DWH Employees\DWH Employees lookup.Outputs[Lookup Match Output].Columns[Address_dim]"
+                      name="Address_dim"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn">Address</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\load in DWH Employees\DWH Employees lookup.Outputs[Lookup Match Output].Columns[City_dim]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Copy Column"
+                      length="15"
+                      lineageId="Package\load in DWH Employees\DWH Employees lookup.Outputs[Lookup Match Output].Columns[City_dim]"
+                      name="City_dim"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn">City</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\load in DWH Employees\DWH Employees lookup.Outputs[Lookup Match Output].Columns[Salary_dim]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Copy Column"
+                      lineageId="Package\load in DWH Employees\DWH Employees lookup.Outputs[Lookup Match Output].Columns[Salary_dim]"
+                      name="Salary_dim"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn">Salary</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\load in DWH Employees\DWH Employees lookup.Outputs[Lookup Match Output].Columns[Title_dim]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Copy Column"
+                      length="50"
+                      lineageId="Package\load in DWH Employees\DWH Employees lookup.Outputs[Lookup Match Output].Columns[Title_dim]"
+                      name="Title_dim"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn">Title</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\load in DWH Employees\DWH Employees lookup.Outputs[Lookup No Match Output]"
+                  description="The Lookup output that handles rows with no matching entries in the reference dataset. Use this output when the NoMatchBehavior property is set to &quot;Send rows with no matching entries to the no match output.&quot;"
+                  exclusionGroup="1"
+                  name="Lookup No Match Output"
+                  synchronousInputId="Package\load in DWH Employees\DWH Employees lookup.Inputs[Lookup Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\load in DWH Employees\DWH Employees lookup.Outputs[Lookup Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Lookup Error Output"
+                  synchronousInputId="Package\load in DWH Employees\DWH Employees lookup.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\load in DWH Employees\DWH Employees lookup.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\load in DWH Employees\DWH Employees lookup.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\load in DWH Employees\DWH Employees lookup.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\load in DWH Employees\DWH Employees lookup.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\load in DWH Employees\set old records"
+              componentClassID="Microsoft.OLEDBCommand"
+              contactInfo="OLE DB Command;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;2"
+              description="Runs an SQL statement for each row in a data flow. For example, call a 'new employee setup' stored procedure for each row in the 'new employees' table. Note: running an SQL statement for each row of a large data flow may take a long time."
+              name="set old records"
+              usesDispositions="true"
+              version="2">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">update DWH.Employees
+ set is_last =0, update_timestamp= GETDATE()
+where EmployeeID = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\load in DWH Employees\set old records.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[LAPTOP-SVQ0715Q.Sales]"
+                  connectionManagerRefId="Package.ConnectionManagers[LAPTOP-SVQ0715Q.Sales]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\load in DWH Employees\set old records.Inputs[OLE DB Command Input]"
+                  errorOrTruncationOperation="Command Execution"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Command Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\load in DWH Employees\set old records.Inputs[OLE DB Command Input].Columns[EmployeeID_dim]"
+                      cachedDataType="i4"
+                      cachedName="EmployeeID_dim"
+                      externalMetadataColumnId="Package\load in DWH Employees\set old records.Inputs[OLE DB Command Input].ExternalColumns[Param_0]"
+                      lineageId="Package\load in DWH Employees\DWH Employees lookup.Outputs[Lookup Match Output].Columns[EmployeeID_dim]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\load in DWH Employees\set old records.Inputs[OLE DB Command Input].ExternalColumns[Param_0]"
+                      dataType="i4"
+                      name="Param_0">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">17</property>
+                      </properties>
+                    </externalMetadataColumn>
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\load in DWH Employees\set old records.Outputs[OLE DB Command Output]"
+                  exclusionGroup="1"
+                  name="OLE DB Command Output"
+                  synchronousInputId="Package\load in DWH Employees\set old records.Inputs[OLE DB Command Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\load in DWH Employees\set old records.Outputs[OLE DB Command Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Command Error Output"
+                  synchronousInputId="Package\load in DWH Employees\set old records.Inputs[OLE DB Command Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\load in DWH Employees\set old records.Outputs[OLE DB Command Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\load in DWH Employees\set old records.Outputs[OLE DB Command Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\load in DWH Employees\set old records.Outputs[OLE DB Command Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\load in DWH Employees\set old records.Outputs[OLE DB Command Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\load in DWH Employees\STG Employees"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="STG Employees"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[STG].[Employees]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from Sales.Employees where last_update &gt; ?</property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping">"Parameter0:Input",{AEFFE287-DEFD-4067-91E0-841F72C99B5A};</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\load in DWH Employees\STG Employees.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[LAPTOP-SVQ0715Q.Sales]"
+                  connectionManagerRefId="Package.ConnectionManagers[LAPTOP-SVQ0715Q.Sales]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\load in DWH Employees\STG Employees.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\load in DWH Employees\STG Employees.Outputs[OLE DB Source Output].Columns[EmployeeID_STG]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\load in DWH Employees\STG Employees.Outputs[OLE DB Source Output].ExternalColumns[EmployeeID]"
+                      lineageId="Package\load in DWH Employees\STG Employees.Outputs[OLE DB Source Output].Columns[EmployeeID_STG]"
+                      name="EmployeeID_STG"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\load in DWH Employees\STG Employees.Outputs[OLE DB Source Output].Columns[LastName_STG]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\load in DWH Employees\STG Employees.Outputs[OLE DB Source Output].ExternalColumns[LastName]"
+                      length="30"
+                      lineageId="Package\load in DWH Employees\STG Employees.Outputs[OLE DB Source Output].Columns[LastName_STG]"
+                      name="LastName_STG"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\load in DWH Employees\STG Employees.Outputs[OLE DB Source Output].Columns[FirstName_STG]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\load in DWH Employees\STG Employees.Outputs[OLE DB Source Output].ExternalColumns[FirstName]"
+                      length="30"
+                      lineageId="Package\load in DWH Employees\STG Employees.Outputs[OLE DB Source Output].Columns[FirstName_STG]"
+                      name="FirstName_STG"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\load in DWH Employees\STG Employees.Outputs[OLE DB Source Output].Columns[Title_STG]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\load in DWH Employees\STG Employees.Outputs[OLE DB Source Output].ExternalColumns[Title]"
+                      length="50"
+                      lineageId="Package\load in DWH Employees\STG Employees.Outputs[OLE DB Source Output].Columns[Title_STG]"
+                      name="Title_STG"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\load in DWH Employees\STG Employees.Outputs[OLE DB Source Output].Columns[HireDate_STG]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\load in DWH Employees\STG Employees.Outputs[OLE DB Source Output].ExternalColumns[HireDate]"
+                      length="10"
+                      lineageId="Package\load in DWH Employees\STG Employees.Outputs[OLE DB Source Output].Columns[HireDate_STG]"
+                      name="HireDate_STG"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\load in DWH Employees\STG Employees.Outputs[OLE DB Source Output].Columns[Address_STG]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\load in DWH Employees\STG Employees.Outputs[OLE DB Source Output].ExternalColumns[Address]"
+                      length="60"
+                      lineageId="Package\load in DWH Employees\STG Employees.Outputs[OLE DB Source Output].Columns[Address_STG]"
+                      name="Address_STG"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\load in DWH Employees\STG Employees.Outputs[OLE DB Source Output].Columns[City_STG]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\load in DWH Employees\STG Employees.Outputs[OLE DB Source Output].ExternalColumns[City]"
+                      length="15"
+                      lineageId="Package\load in DWH Employees\STG Employees.Outputs[OLE DB Source Output].Columns[City_STG]"
+                      name="City_STG"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\load in DWH Employees\STG Employees.Outputs[OLE DB Source Output].Columns[HomePhone_STG]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\load in DWH Employees\STG Employees.Outputs[OLE DB Source Output].ExternalColumns[HomePhone]"
+                      length="24"
+                      lineageId="Package\load in DWH Employees\STG Employees.Outputs[OLE DB Source Output].Columns[HomePhone_STG]"
+                      name="HomePhone_STG"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\load in DWH Employees\STG Employees.Outputs[OLE DB Source Output].Columns[Salary_STG]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\load in DWH Employees\STG Employees.Outputs[OLE DB Source Output].ExternalColumns[Salary]"
+                      lineageId="Package\load in DWH Employees\STG Employees.Outputs[OLE DB Source Output].Columns[Salary_STG]"
+                      name="Salary_STG"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\load in DWH Employees\STG Employees.Outputs[OLE DB Source Output].ExternalColumns[EmployeeID]"
+                      dataType="i4"
+                      name="EmployeeID" />
+                    <externalMetadataColumn
+                      refId="Package\load in DWH Employees\STG Employees.Outputs[OLE DB Source Output].ExternalColumns[LastName]"
+                      codePage="1252"
+                      dataType="str"
+                      length="30"
+                      name="LastName" />
+                    <externalMetadataColumn
+                      refId="Package\load in DWH Employees\STG Employees.Outputs[OLE DB Source Output].ExternalColumns[FirstName]"
+                      codePage="1252"
+                      dataType="str"
+                      length="30"
+                      name="FirstName" />
+                    <externalMetadataColumn
+                      refId="Package\load in DWH Employees\STG Employees.Outputs[OLE DB Source Output].ExternalColumns[Title]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="Title" />
+                    <externalMetadataColumn
+                      refId="Package\load in DWH Employees\STG Employees.Outputs[OLE DB Source Output].ExternalColumns[HireDate]"
+                      dataType="wstr"
+                      length="10"
+                      name="HireDate" />
+                    <externalMetadataColumn
+                      refId="Package\load in DWH Employees\STG Employees.Outputs[OLE DB Source Output].ExternalColumns[Address]"
+                      codePage="1252"
+                      dataType="str"
+                      length="60"
+                      name="Address" />
+                    <externalMetadataColumn
+                      refId="Package\load in DWH Employees\STG Employees.Outputs[OLE DB Source Output].ExternalColumns[City]"
+                      codePage="1252"
+                      dataType="str"
+                      length="15"
+                      name="City" />
+                    <externalMetadataColumn
+                      refId="Package\load in DWH Employees\STG Employees.Outputs[OLE DB Source Output].ExternalColumns[HomePhone]"
+                      codePage="1252"
+                      dataType="str"
+                      length="24"
+                      name="HomePhone" />
+                    <externalMetadataColumn
+                      refId="Package\load in DWH Employees\STG Employees.Outputs[OLE DB Source Output].ExternalColumns[Salary]"
+                      dataType="i4"
+                      name="Salary" />
+                    <externalMetadataColumn
+                      refId="Package\load in DWH Employees\STG Employees.Outputs[OLE DB Source Output].ExternalColumns[src_update_date]"
+                      dataType="dbTimeStamp"
+                      name="src_update_date" />
+                    <externalMetadataColumn
+                      refId="Package\load in DWH Employees\STG Employees.Outputs[OLE DB Source Output].ExternalColumns[create_timestamp]"
+                      dataType="dbTimeStamp"
+                      name="create_timestamp" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\load in DWH Employees\STG Employees.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\load in DWH Employees\STG Employees.Outputs[OLE DB Source Error Output].Columns[EmployeeID]"
+                      dataType="i4"
+                      lineageId="Package\load in DWH Employees\STG Employees.Outputs[OLE DB Source Error Output].Columns[EmployeeID]"
+                      name="EmployeeID" />
+                    <outputColumn
+                      refId="Package\load in DWH Employees\STG Employees.Outputs[OLE DB Source Error Output].Columns[LastName]"
+                      codePage="1252"
+                      dataType="str"
+                      length="30"
+                      lineageId="Package\load in DWH Employees\STG Employees.Outputs[OLE DB Source Error Output].Columns[LastName]"
+                      name="LastName" />
+                    <outputColumn
+                      refId="Package\load in DWH Employees\STG Employees.Outputs[OLE DB Source Error Output].Columns[FirstName]"
+                      codePage="1252"
+                      dataType="str"
+                      length="30"
+                      lineageId="Package\load in DWH Employees\STG Employees.Outputs[OLE DB Source Error Output].Columns[FirstName]"
+                      name="FirstName" />
+                    <outputColumn
+                      refId="Package\load in DWH Employees\STG Employees.Outputs[OLE DB Source Error Output].Columns[Title]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      lineageId="Package\load in DWH Employees\STG Employees.Outputs[OLE DB Source Error Output].Columns[Title]"
+                      name="Title" />
+                    <outputColumn
+                      refId="Package\load in DWH Employees\STG Employees.Outputs[OLE DB Source Error Output].Columns[HireDate]"
+                      dataType="wstr"
+                      length="10"
+                      lineageId="Package\load in DWH Employees\STG Employees.Outputs[OLE DB Source Error Output].Columns[HireDate]"
+                      name="HireDate" />
+                    <outputColumn
+                      refId="Package\load in DWH Employees\STG Employees.Outputs[OLE DB Source Error Output].Columns[Address]"
+                      codePage="1252"
+                      dataType="str"
+                      length="60"
+                      lineageId="Package\load in DWH Employees\STG Employees.Outputs[OLE DB Source Error Output].Columns[Address]"
+                      name="Address" />
+                    <outputColumn
+                      refId="Package\load in DWH Employees\STG Employees.Outputs[OLE DB Source Error Output].Columns[City]"
+                      codePage="1252"
+                      dataType="str"
+                      length="15"
+                      lineageId="Package\load in DWH Employees\STG Employees.Outputs[OLE DB Source Error Output].Columns[City]"
+                      name="City" />
+                    <outputColumn
+                      refId="Package\load in DWH Employees\STG Employees.Outputs[OLE DB Source Error Output].Columns[HomePhone]"
+                      codePage="1252"
+                      dataType="str"
+                      length="24"
+                      lineageId="Package\load in DWH Employees\STG Employees.Outputs[OLE DB Source Error Output].Columns[HomePhone]"
+                      name="HomePhone" />
+                    <outputColumn
+                      refId="Package\load in DWH Employees\STG Employees.Outputs[OLE DB Source Error Output].Columns[Salary]"
+                      dataType="i4"
+                      lineageId="Package\load in DWH Employees\STG Employees.Outputs[OLE DB Source Error Output].Columns[Salary]"
+                      name="Salary" />
+                    <outputColumn
+                      refId="Package\load in DWH Employees\STG Employees.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\load in DWH Employees\STG Employees.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\load in DWH Employees\STG Employees.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\load in DWH Employees\STG Employees.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\load in DWH Employees\Union All"
+              componentClassID="Microsoft.UnionAll"
+              contactInfo="Union All;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;1"
+              description="Combines rows from multiple data flows without sorting. For example, add rows back to a data flow after correction of errors. If sorting is important, we recommend using the Merge transformation."
+              name="Union All"
+              version="1">
+              <inputs>
+                <input
+                  refId="Package\load in DWH Employees\Union All.Inputs[Union All Input 1]"
+                  name="Union All Input 1">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\load in DWH Employees\Union All.Inputs[Union All Input 1].Columns[EmployeeID_STG]"
+                      cachedDataType="i4"
+                      cachedName="EmployeeID_STG"
+                      lineageId="Package\load in DWH Employees\STG Employees.Outputs[OLE DB Source Output].Columns[EmployeeID_STG]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\load in DWH Employees\Union All.Outputs[Union All Output 1].Columns[EmployeeID_STG]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\load in DWH Employees\Union All.Inputs[Union All Input 1].Columns[LastName_STG]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="30"
+                      cachedName="LastName_STG"
+                      lineageId="Package\load in DWH Employees\STG Employees.Outputs[OLE DB Source Output].Columns[LastName_STG]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\load in DWH Employees\Union All.Outputs[Union All Output 1].Columns[LastName_STG]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\load in DWH Employees\Union All.Inputs[Union All Input 1].Columns[FirstName_STG]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="30"
+                      cachedName="FirstName_STG"
+                      lineageId="Package\load in DWH Employees\STG Employees.Outputs[OLE DB Source Output].Columns[FirstName_STG]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\load in DWH Employees\Union All.Outputs[Union All Output 1].Columns[FirstName_STG]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\load in DWH Employees\Union All.Inputs[Union All Input 1].Columns[Title_STG]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="Title_STG"
+                      lineageId="Package\load in DWH Employees\STG Employees.Outputs[OLE DB Source Output].Columns[Title_STG]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\load in DWH Employees\Union All.Outputs[Union All Output 1].Columns[Title_STG]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\load in DWH Employees\Union All.Inputs[Union All Input 1].Columns[HireDate_STG]"
+                      cachedDataType="wstr"
+                      cachedLength="10"
+                      cachedName="HireDate_STG"
+                      lineageId="Package\load in DWH Employees\STG Employees.Outputs[OLE DB Source Output].Columns[HireDate_STG]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\load in DWH Employees\Union All.Outputs[Union All Output 1].Columns[HireDate_STG]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\load in DWH Employees\Union All.Inputs[Union All Input 1].Columns[Address_STG]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="60"
+                      cachedName="Address_STG"
+                      lineageId="Package\load in DWH Employees\STG Employees.Outputs[OLE DB Source Output].Columns[Address_STG]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\load in DWH Employees\Union All.Outputs[Union All Output 1].Columns[Address_STG]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\load in DWH Employees\Union All.Inputs[Union All Input 1].Columns[City_STG]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="15"
+                      cachedName="City_STG"
+                      lineageId="Package\load in DWH Employees\STG Employees.Outputs[OLE DB Source Output].Columns[City_STG]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\load in DWH Employees\Union All.Outputs[Union All Output 1].Columns[City_STG]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\load in DWH Employees\Union All.Inputs[Union All Input 1].Columns[HomePhone_STG]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="24"
+                      cachedName="HomePhone_STG"
+                      lineageId="Package\load in DWH Employees\STG Employees.Outputs[OLE DB Source Output].Columns[HomePhone_STG]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\load in DWH Employees\Union All.Outputs[Union All Output 1].Columns[HomePhone_STG]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\load in DWH Employees\Union All.Inputs[Union All Input 1].Columns[Salary_STG]"
+                      cachedDataType="i4"
+                      cachedName="Salary_STG"
+                      lineageId="Package\load in DWH Employees\STG Employees.Outputs[OLE DB Source Output].Columns[Salary_STG]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\load in DWH Employees\Union All.Outputs[Union All Output 1].Columns[Salary_STG]}</property>
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+                <input
+                  refId="Package\load in DWH Employees\Union All.Inputs[Union All Input 2]"
+                  hasSideEffects="true"
+                  name="Union All Input 2">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\load in DWH Employees\Union All.Inputs[Union All Input 2].Columns[EmployeeID_STG]"
+                      cachedDataType="i4"
+                      cachedName="EmployeeID_STG"
+                      lineageId="Package\load in DWH Employees\STG Employees.Outputs[OLE DB Source Output].Columns[EmployeeID_STG]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\load in DWH Employees\Union All.Outputs[Union All Output 1].Columns[EmployeeID_STG]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\load in DWH Employees\Union All.Inputs[Union All Input 2].Columns[LastName_STG]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="30"
+                      cachedName="LastName_STG"
+                      lineageId="Package\load in DWH Employees\STG Employees.Outputs[OLE DB Source Output].Columns[LastName_STG]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\load in DWH Employees\Union All.Outputs[Union All Output 1].Columns[LastName_STG]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\load in DWH Employees\Union All.Inputs[Union All Input 2].Columns[FirstName_STG]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="30"
+                      cachedName="FirstName_STG"
+                      lineageId="Package\load in DWH Employees\STG Employees.Outputs[OLE DB Source Output].Columns[FirstName_STG]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\load in DWH Employees\Union All.Outputs[Union All Output 1].Columns[FirstName_STG]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\load in DWH Employees\Union All.Inputs[Union All Input 2].Columns[Title_STG]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="Title_STG"
+                      lineageId="Package\load in DWH Employees\STG Employees.Outputs[OLE DB Source Output].Columns[Title_STG]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\load in DWH Employees\Union All.Outputs[Union All Output 1].Columns[Title_STG]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\load in DWH Employees\Union All.Inputs[Union All Input 2].Columns[HireDate_STG]"
+                      cachedDataType="wstr"
+                      cachedLength="10"
+                      cachedName="HireDate_STG"
+                      lineageId="Package\load in DWH Employees\STG Employees.Outputs[OLE DB Source Output].Columns[HireDate_STG]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\load in DWH Employees\Union All.Outputs[Union All Output 1].Columns[HireDate_STG]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\load in DWH Employees\Union All.Inputs[Union All Input 2].Columns[Address_STG]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="60"
+                      cachedName="Address_STG"
+                      lineageId="Package\load in DWH Employees\STG Employees.Outputs[OLE DB Source Output].Columns[Address_STG]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\load in DWH Employees\Union All.Outputs[Union All Output 1].Columns[Address_STG]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\load in DWH Employees\Union All.Inputs[Union All Input 2].Columns[City_STG]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="15"
+                      cachedName="City_STG"
+                      lineageId="Package\load in DWH Employees\STG Employees.Outputs[OLE DB Source Output].Columns[City_STG]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\load in DWH Employees\Union All.Outputs[Union All Output 1].Columns[City_STG]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\load in DWH Employees\Union All.Inputs[Union All Input 2].Columns[HomePhone_STG]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="24"
+                      cachedName="HomePhone_STG"
+                      lineageId="Package\load in DWH Employees\STG Employees.Outputs[OLE DB Source Output].Columns[HomePhone_STG]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\load in DWH Employees\Union All.Outputs[Union All Output 1].Columns[HomePhone_STG]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\load in DWH Employees\Union All.Inputs[Union All Input 2].Columns[Salary_STG]"
+                      cachedDataType="i4"
+                      cachedName="Salary_STG"
+                      lineageId="Package\load in DWH Employees\STG Employees.Outputs[OLE DB Source Output].Columns[Salary_STG]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\load in DWH Employees\Union All.Outputs[Union All Output 1].Columns[Salary_STG]}</property>
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+                <input
+                  refId="Package\load in DWH Employees\Union All.Inputs[Union All Input 3]"
+                  dangling="true"
+                  hasSideEffects="true"
+                  name="Union All Input 3">
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\load in DWH Employees\Union All.Outputs[Union All Output 1]"
+                  name="Union All Output 1">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\load in DWH Employees\Union All.Outputs[Union All Output 1].Columns[EmployeeID_STG]"
+                      dataType="i4"
+                      lineageId="Package\load in DWH Employees\Union All.Outputs[Union All Output 1].Columns[EmployeeID_STG]"
+                      name="EmployeeID_STG" />
+                    <outputColumn
+                      refId="Package\load in DWH Employees\Union All.Outputs[Union All Output 1].Columns[LastName_STG]"
+                      codePage="1252"
+                      dataType="str"
+                      length="30"
+                      lineageId="Package\load in DWH Employees\Union All.Outputs[Union All Output 1].Columns[LastName_STG]"
+                      name="LastName_STG" />
+                    <outputColumn
+                      refId="Package\load in DWH Employees\Union All.Outputs[Union All Output 1].Columns[FirstName_STG]"
+                      codePage="1252"
+                      dataType="str"
+                      length="30"
+                      lineageId="Package\load in DWH Employees\Union All.Outputs[Union All Output 1].Columns[FirstName_STG]"
+                      name="FirstName_STG" />
+                    <outputColumn
+                      refId="Package\load in DWH Employees\Union All.Outputs[Union All Output 1].Columns[Title_STG]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      lineageId="Package\load in DWH Employees\Union All.Outputs[Union All Output 1].Columns[Title_STG]"
+                      name="Title_STG" />
+                    <outputColumn
+                      refId="Package\load in DWH Employees\Union All.Outputs[Union All Output 1].Columns[HireDate_STG]"
+                      dataType="wstr"
+                      length="10"
+                      lineageId="Package\load in DWH Employees\Union All.Outputs[Union All Output 1].Columns[HireDate_STG]"
+                      name="HireDate_STG" />
+                    <outputColumn
+                      refId="Package\load in DWH Employees\Union All.Outputs[Union All Output 1].Columns[Address_STG]"
+                      codePage="1252"
+                      dataType="str"
+                      length="60"
+                      lineageId="Package\load in DWH Employees\Union All.Outputs[Union All Output 1].Columns[Address_STG]"
+                      name="Address_STG" />
+                    <outputColumn
+                      refId="Package\load in DWH Employees\Union All.Outputs[Union All Output 1].Columns[City_STG]"
+                      codePage="1252"
+                      dataType="str"
+                      length="15"
+                      lineageId="Package\load in DWH Employees\Union All.Outputs[Union All Output 1].Columns[City_STG]"
+                      name="City_STG" />
+                    <outputColumn
+                      refId="Package\load in DWH Employees\Union All.Outputs[Union All Output 1].Columns[HomePhone_STG]"
+                      codePage="1252"
+                      dataType="str"
+                      length="24"
+                      lineageId="Package\load in DWH Employees\Union All.Outputs[Union All Output 1].Columns[HomePhone_STG]"
+                      name="HomePhone_STG" />
+                    <outputColumn
+                      refId="Package\load in DWH Employees\Union All.Outputs[Union All Output 1].Columns[Salary_STG]"
+                      dataType="i4"
+                      lineageId="Package\load in DWH Employees\Union All.Outputs[Union All Output 1].Columns[Salary_STG]"
+                      name="Salary_STG" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\load in DWH Employees.Paths[changed]"
+              endId="Package\load in DWH Employees\set old records.Inputs[OLE DB Command Input]"
+              name="changed"
+              startId="Package\load in DWH Employees\Check Changed data.Outputs[changed]" />
+            <path
+              refId="Package\load in DWH Employees.Paths[Derived Column Output]"
+              endId="Package\load in DWH Employees\DWH Employees.Inputs[OLE DB Destination Input]"
+              name="Derived Column Output"
+              startId="Package\load in DWH Employees\add new records.Outputs[Derived Column Output]" />
+            <path
+              refId="Package\load in DWH Employees.Paths[Lookup Match Output]"
+              endId="Package\load in DWH Employees\Check Changed data.Inputs[Conditional Split Input]"
+              name="Lookup Match Output"
+              startId="Package\load in DWH Employees\DWH Employees lookup.Outputs[Lookup Match Output]" />
+            <path
+              refId="Package\load in DWH Employees.Paths[Lookup No Match Output]"
+              endId="Package\load in DWH Employees\Union All.Inputs[Union All Input 1]"
+              name="Lookup No Match Output"
+              startId="Package\load in DWH Employees\DWH Employees lookup.Outputs[Lookup No Match Output]" />
+            <path
+              refId="Package\load in DWH Employees.Paths[OLE DB Command Output]"
+              endId="Package\load in DWH Employees\Union All.Inputs[Union All Input 2]"
+              name="OLE DB Command Output"
+              startId="Package\load in DWH Employees\set old records.Outputs[OLE DB Command Output]" />
+            <path
+              refId="Package\load in DWH Employees.Paths[OLE DB Source Output]"
+              endId="Package\load in DWH Employees\DWH Employees lookup.Inputs[Lookup Input]"
+              name="OLE DB Source Output"
+              startId="Package\load in DWH Employees\STG Employees.Outputs[OLE DB Source Output]" />
+            <path
+              refId="Package\load in DWH Employees.Paths[Union All Output 1]"
+              endId="Package\load in DWH Employees\add new records.Inputs[Derived Column Input]"
+              name="Union All Output 1"
+              startId="Package\load in DWH Employees\Union All.Outputs[Union All Output 1]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\load in STG Employees"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{91967EC5-CF58-4725-80C3-6A1DCB1F7DE2}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="load in STG Employees"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\load in STG Employees\create timestamp"
+              componentClassID="Microsoft.DerivedColumn"
+              contactInfo="Derived Column;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Creates new column values by applying expressions to transformation input columns. Create new columns or overwrite existing ones. For example, concatenate the values from the 'first name' and 'last name' column to make a 'full name' column."
+              name="create timestamp"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\load in STG Employees\create timestamp.Inputs[Derived Column Input]"
+                  description="Input to the Derived Column Transformation"
+                  name="Derived Column Input">
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\load in STG Employees\create timestamp.Outputs[Derived Column Output]"
+                  description="Default Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  name="Derived Column Output"
+                  synchronousInputId="Package\load in STG Employees\create timestamp.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\load in STG Employees\create timestamp.Outputs[Derived Column Output].Columns[timeStamp]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\load in STG Employees\create timestamp.Outputs[Derived Column Output].Columns[timeStamp]"
+                      name="timeStamp"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">[GETDATE]()</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">GETDATE()</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\load in STG Employees\create timestamp.Outputs[Derived Column Error Output]"
+                  description="Error Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Derived Column Error Output"
+                  synchronousInputId="Package\load in STG Employees\create timestamp.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\load in STG Employees\create timestamp.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\load in STG Employees\create timestamp.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\load in STG Employees\create timestamp.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\load in STG Employees\create timestamp.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\load in STG Employees\Sales Employee SRC"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="Sales Employee SRC"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[Sales].[Employees]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from Sales.Employees where last_update &gt; ?</property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable">User::update_ConfTable</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping">"Parameter0:Input",{AEFFE287-DEFD-4067-91E0-841F72C99B5A};</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\load in STG Employees\Sales Employee SRC.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[LAPTOP-SVQ0715Q.Sales]"
+                  connectionManagerRefId="Package.ConnectionManagers[LAPTOP-SVQ0715Q.Sales]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\load in STG Employees\Sales Employee SRC.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\load in STG Employees\Sales Employee SRC.Outputs[OLE DB Source Output].Columns[Address]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\load in STG Employees\Sales Employee SRC.Outputs[OLE DB Source Output].ExternalColumns[Address]"
+                      length="60"
+                      lineageId="Package\load in STG Employees\Sales Employee SRC.Outputs[OLE DB Source Output].Columns[Address]"
+                      name="Address"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\load in STG Employees\Sales Employee SRC.Outputs[OLE DB Source Output].Columns[City]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\load in STG Employees\Sales Employee SRC.Outputs[OLE DB Source Output].ExternalColumns[City]"
+                      length="15"
+                      lineageId="Package\load in STG Employees\Sales Employee SRC.Outputs[OLE DB Source Output].Columns[City]"
+                      name="City"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\load in STG Employees\Sales Employee SRC.Outputs[OLE DB Source Output].Columns[last_update]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\load in STG Employees\Sales Employee SRC.Outputs[OLE DB Source Output].ExternalColumns[last_update]"
+                      lineageId="Package\load in STG Employees\Sales Employee SRC.Outputs[OLE DB Source Output].Columns[last_update]"
+                      name="last_update"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\load in STG Employees\Sales Employee SRC.Outputs[OLE DB Source Output].Columns[EmployeeID]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\load in STG Employees\Sales Employee SRC.Outputs[OLE DB Source Output].ExternalColumns[EmployeeID]"
+                      lineageId="Package\load in STG Employees\Sales Employee SRC.Outputs[OLE DB Source Output].Columns[EmployeeID]"
+                      name="EmployeeID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\load in STG Employees\Sales Employee SRC.Outputs[OLE DB Source Output].Columns[LastName]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\load in STG Employees\Sales Employee SRC.Outputs[OLE DB Source Output].ExternalColumns[LastName]"
+                      length="30"
+                      lineageId="Package\load in STG Employees\Sales Employee SRC.Outputs[OLE DB Source Output].Columns[LastName]"
+                      name="LastName"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\load in STG Employees\Sales Employee SRC.Outputs[OLE DB Source Output].Columns[FirstName]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\load in STG Employees\Sales Employee SRC.Outputs[OLE DB Source Output].ExternalColumns[FirstName]"
+                      length="30"
+                      lineageId="Package\load in STG Employees\Sales Employee SRC.Outputs[OLE DB Source Output].Columns[FirstName]"
+                      name="FirstName"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\load in STG Employees\Sales Employee SRC.Outputs[OLE DB Source Output].Columns[Title]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\load in STG Employees\Sales Employee SRC.Outputs[OLE DB Source Output].ExternalColumns[Title]"
+                      length="50"
+                      lineageId="Package\load in STG Employees\Sales Employee SRC.Outputs[OLE DB Source Output].Columns[Title]"
+                      name="Title"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\load in STG Employees\Sales Employee SRC.Outputs[OLE DB Source Output].Columns[HireDate]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\load in STG Employees\Sales Employee SRC.Outputs[OLE DB Source Output].ExternalColumns[HireDate]"
+                      length="10"
+                      lineageId="Package\load in STG Employees\Sales Employee SRC.Outputs[OLE DB Source Output].Columns[HireDate]"
+                      name="HireDate"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\load in STG Employees\Sales Employee SRC.Outputs[OLE DB Source Output].Columns[HomePhone]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\load in STG Employees\Sales Employee SRC.Outputs[OLE DB Source Output].ExternalColumns[HomePhone]"
+                      length="24"
+                      lineageId="Package\load in STG Employees\Sales Employee SRC.Outputs[OLE DB Source Output].Columns[HomePhone]"
+                      name="HomePhone"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\load in STG Employees\Sales Employee SRC.Outputs[OLE DB Source Output].Columns[Salary]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\load in STG Employees\Sales Employee SRC.Outputs[OLE DB Source Output].ExternalColumns[Salary]"
+                      lineageId="Package\load in STG Employees\Sales Employee SRC.Outputs[OLE DB Source Output].Columns[Salary]"
+                      name="Salary"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\load in STG Employees\Sales Employee SRC.Outputs[OLE DB Source Output].ExternalColumns[Address]"
+                      codePage="1252"
+                      dataType="str"
+                      length="60"
+                      name="Address" />
+                    <externalMetadataColumn
+                      refId="Package\load in STG Employees\Sales Employee SRC.Outputs[OLE DB Source Output].ExternalColumns[City]"
+                      codePage="1252"
+                      dataType="str"
+                      length="15"
+                      name="City" />
+                    <externalMetadataColumn
+                      refId="Package\load in STG Employees\Sales Employee SRC.Outputs[OLE DB Source Output].ExternalColumns[PostalCode]"
+                      codePage="1252"
+                      dataType="str"
+                      length="10"
+                      name="PostalCode" />
+                    <externalMetadataColumn
+                      refId="Package\load in STG Employees\Sales Employee SRC.Outputs[OLE DB Source Output].ExternalColumns[Country]"
+                      codePage="1252"
+                      dataType="str"
+                      length="15"
+                      name="Country" />
+                    <externalMetadataColumn
+                      refId="Package\load in STG Employees\Sales Employee SRC.Outputs[OLE DB Source Output].ExternalColumns[last_update]"
+                      dataType="dbTimeStamp"
+                      name="last_update" />
+                    <externalMetadataColumn
+                      refId="Package\load in STG Employees\Sales Employee SRC.Outputs[OLE DB Source Output].ExternalColumns[EmployeeID]"
+                      dataType="i4"
+                      name="EmployeeID" />
+                    <externalMetadataColumn
+                      refId="Package\load in STG Employees\Sales Employee SRC.Outputs[OLE DB Source Output].ExternalColumns[LastName]"
+                      codePage="1252"
+                      dataType="str"
+                      length="30"
+                      name="LastName" />
+                    <externalMetadataColumn
+                      refId="Package\load in STG Employees\Sales Employee SRC.Outputs[OLE DB Source Output].ExternalColumns[FirstName]"
+                      codePage="1252"
+                      dataType="str"
+                      length="30"
+                      name="FirstName" />
+                    <externalMetadataColumn
+                      refId="Package\load in STG Employees\Sales Employee SRC.Outputs[OLE DB Source Output].ExternalColumns[Title]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="Title" />
+                    <externalMetadataColumn
+                      refId="Package\load in STG Employees\Sales Employee SRC.Outputs[OLE DB Source Output].ExternalColumns[BirthDate]"
+                      dataType="wstr"
+                      length="10"
+                      name="BirthDate" />
+                    <externalMetadataColumn
+                      refId="Package\load in STG Employees\Sales Employee SRC.Outputs[OLE DB Source Output].ExternalColumns[HireDate]"
+                      dataType="wstr"
+                      length="10"
+                      name="HireDate" />
+                    <externalMetadataColumn
+                      refId="Package\load in STG Employees\Sales Employee SRC.Outputs[OLE DB Source Output].ExternalColumns[HomePhone]"
+                      codePage="1252"
+                      dataType="str"
+                      length="24"
+                      name="HomePhone" />
+                    <externalMetadataColumn
+                      refId="Package\load in STG Employees\Sales Employee SRC.Outputs[OLE DB Source Output].ExternalColumns[Extension]"
+                      codePage="1252"
+                      dataType="str"
+                      length="4"
+                      name="Extension" />
+                    <externalMetadataColumn
+                      refId="Package\load in STG Employees\Sales Employee SRC.Outputs[OLE DB Source Output].ExternalColumns[Notes]"
+                      codePage="1252"
+                      dataType="text"
+                      name="Notes" />
+                    <externalMetadataColumn
+                      refId="Package\load in STG Employees\Sales Employee SRC.Outputs[OLE DB Source Output].ExternalColumns[ReportsTo]"
+                      dataType="i4"
+                      name="ReportsTo" />
+                    <externalMetadataColumn
+                      refId="Package\load in STG Employees\Sales Employee SRC.Outputs[OLE DB Source Output].ExternalColumns[Salary]"
+                      dataType="i4"
+                      name="Salary" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\load in STG Employees\Sales Employee SRC.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\load in STG Employees\Sales Employee SRC.Outputs[OLE DB Source Error Output].Columns[EmployeeID]"
+                      dataType="i4"
+                      lineageId="Package\load in STG Employees\Sales Employee SRC.Outputs[OLE DB Source Error Output].Columns[EmployeeID]"
+                      name="EmployeeID" />
+                    <outputColumn
+                      refId="Package\load in STG Employees\Sales Employee SRC.Outputs[OLE DB Source Error Output].Columns[LastName]"
+                      codePage="1252"
+                      dataType="str"
+                      length="30"
+                      lineageId="Package\load in STG Employees\Sales Employee SRC.Outputs[OLE DB Source Error Output].Columns[LastName]"
+                      name="LastName" />
+                    <outputColumn
+                      refId="Package\load in STG Employees\Sales Employee SRC.Outputs[OLE DB Source Error Output].Columns[FirstName]"
+                      codePage="1252"
+                      dataType="str"
+                      length="30"
+                      lineageId="Package\load in STG Employees\Sales Employee SRC.Outputs[OLE DB Source Error Output].Columns[FirstName]"
+                      name="FirstName" />
+                    <outputColumn
+                      refId="Package\load in STG Employees\Sales Employee SRC.Outputs[OLE DB Source Error Output].Columns[Title]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      lineageId="Package\load in STG Employees\Sales Employee SRC.Outputs[OLE DB Source Error Output].Columns[Title]"
+                      name="Title" />
+                    <outputColumn
+                      refId="Package\load in STG Employees\Sales Employee SRC.Outputs[OLE DB Source Error Output].Columns[HireDate]"
+                      dataType="wstr"
+                      length="10"
+                      lineageId="Package\load in STG Employees\Sales Employee SRC.Outputs[OLE DB Source Error Output].Columns[HireDate]"
+                      name="HireDate" />
+                    <outputColumn
+                      refId="Package\load in STG Employees\Sales Employee SRC.Outputs[OLE DB Source Error Output].Columns[Address]"
+                      codePage="1252"
+                      dataType="str"
+                      length="60"
+                      lineageId="Package\load in STG Employees\Sales Employee SRC.Outputs[OLE DB Source Error Output].Columns[Address]"
+                      name="Address" />
+                    <outputColumn
+                      refId="Package\load in STG Employees\Sales Employee SRC.Outputs[OLE DB Source Error Output].Columns[City]"
+                      codePage="1252"
+                      dataType="str"
+                      length="15"
+                      lineageId="Package\load in STG Employees\Sales Employee SRC.Outputs[OLE DB Source Error Output].Columns[City]"
+                      name="City" />
+                    <outputColumn
+                      refId="Package\load in STG Employees\Sales Employee SRC.Outputs[OLE DB Source Error Output].Columns[last_update]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\load in STG Employees\Sales Employee SRC.Outputs[OLE DB Source Error Output].Columns[last_update]"
+                      name="last_update" />
+                    <outputColumn
+                      refId="Package\load in STG Employees\Sales Employee SRC.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\load in STG Employees\Sales Employee SRC.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\load in STG Employees\Sales Employee SRC.Outputs[OLE DB Source Error Output].Columns[HomePhone]"
+                      codePage="1252"
+                      dataType="str"
+                      length="24"
+                      lineageId="Package\load in STG Employees\Sales Employee SRC.Outputs[OLE DB Source Error Output].Columns[HomePhone]"
+                      name="HomePhone" />
+                    <outputColumn
+                      refId="Package\load in STG Employees\Sales Employee SRC.Outputs[OLE DB Source Error Output].Columns[Salary]"
+                      dataType="i4"
+                      lineageId="Package\load in STG Employees\Sales Employee SRC.Outputs[OLE DB Source Error Output].Columns[Salary]"
+                      name="Salary" />
+                    <outputColumn
+                      refId="Package\load in STG Employees\Sales Employee SRC.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\load in STG Employees\Sales Employee SRC.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\load in STG Employees\STG Employees"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="STG Employees"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[STG].[Employees]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\load in STG Employees\STG Employees.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[LAPTOP-SVQ0715Q.Sales]"
+                  connectionManagerRefId="Package.ConnectionManagers[LAPTOP-SVQ0715Q.Sales]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\load in STG Employees\STG Employees.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\load in STG Employees\STG Employees.Inputs[OLE DB Destination Input].Columns[Address]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="60"
+                      cachedName="Address"
+                      externalMetadataColumnId="Package\load in STG Employees\STG Employees.Inputs[OLE DB Destination Input].ExternalColumns[Address]"
+                      lineageId="Package\load in STG Employees\Sales Employee SRC.Outputs[OLE DB Source Output].Columns[Address]" />
+                    <inputColumn
+                      refId="Package\load in STG Employees\STG Employees.Inputs[OLE DB Destination Input].Columns[City]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="15"
+                      cachedName="City"
+                      externalMetadataColumnId="Package\load in STG Employees\STG Employees.Inputs[OLE DB Destination Input].ExternalColumns[City]"
+                      lineageId="Package\load in STG Employees\Sales Employee SRC.Outputs[OLE DB Source Output].Columns[City]" />
+                    <inputColumn
+                      refId="Package\load in STG Employees\STG Employees.Inputs[OLE DB Destination Input].Columns[LastName]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="30"
+                      cachedName="LastName"
+                      externalMetadataColumnId="Package\load in STG Employees\STG Employees.Inputs[OLE DB Destination Input].ExternalColumns[LastName]"
+                      lineageId="Package\load in STG Employees\Sales Employee SRC.Outputs[OLE DB Source Output].Columns[LastName]" />
+                    <inputColumn
+                      refId="Package\load in STG Employees\STG Employees.Inputs[OLE DB Destination Input].Columns[FirstName]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="30"
+                      cachedName="FirstName"
+                      externalMetadataColumnId="Package\load in STG Employees\STG Employees.Inputs[OLE DB Destination Input].ExternalColumns[FirstName]"
+                      lineageId="Package\load in STG Employees\Sales Employee SRC.Outputs[OLE DB Source Output].Columns[FirstName]" />
+                    <inputColumn
+                      refId="Package\load in STG Employees\STG Employees.Inputs[OLE DB Destination Input].Columns[Title]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="Title"
+                      externalMetadataColumnId="Package\load in STG Employees\STG Employees.Inputs[OLE DB Destination Input].ExternalColumns[Title]"
+                      lineageId="Package\load in STG Employees\Sales Employee SRC.Outputs[OLE DB Source Output].Columns[Title]" />
+                    <inputColumn
+                      refId="Package\load in STG Employees\STG Employees.Inputs[OLE DB Destination Input].Columns[HireDate]"
+                      cachedDataType="wstr"
+                      cachedLength="10"
+                      cachedName="HireDate"
+                      externalMetadataColumnId="Package\load in STG Employees\STG Employees.Inputs[OLE DB Destination Input].ExternalColumns[HireDate]"
+                      lineageId="Package\load in STG Employees\Sales Employee SRC.Outputs[OLE DB Source Output].Columns[HireDate]" />
+                    <inputColumn
+                      refId="Package\load in STG Employees\STG Employees.Inputs[OLE DB Destination Input].Columns[HomePhone]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="24"
+                      cachedName="HomePhone"
+                      externalMetadataColumnId="Package\load in STG Employees\STG Employees.Inputs[OLE DB Destination Input].ExternalColumns[HomePhone]"
+                      lineageId="Package\load in STG Employees\Sales Employee SRC.Outputs[OLE DB Source Output].Columns[HomePhone]" />
+                    <inputColumn
+                      refId="Package\load in STG Employees\STG Employees.Inputs[OLE DB Destination Input].Columns[Salary]"
+                      cachedDataType="i4"
+                      cachedName="Salary"
+                      externalMetadataColumnId="Package\load in STG Employees\STG Employees.Inputs[OLE DB Destination Input].ExternalColumns[Salary]"
+                      lineageId="Package\load in STG Employees\Sales Employee SRC.Outputs[OLE DB Source Output].Columns[Salary]" />
+                    <inputColumn
+                      refId="Package\load in STG Employees\STG Employees.Inputs[OLE DB Destination Input].Columns[last_update]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="last_update"
+                      externalMetadataColumnId="Package\load in STG Employees\STG Employees.Inputs[OLE DB Destination Input].ExternalColumns[src_update_date]"
+                      lineageId="Package\load in STG Employees\Sales Employee SRC.Outputs[OLE DB Source Output].Columns[last_update]" />
+                    <inputColumn
+                      refId="Package\load in STG Employees\STG Employees.Inputs[OLE DB Destination Input].Columns[timeStamp]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="timeStamp"
+                      externalMetadataColumnId="Package\load in STG Employees\STG Employees.Inputs[OLE DB Destination Input].ExternalColumns[create_timestamp]"
+                      lineageId="Package\load in STG Employees\create timestamp.Outputs[Derived Column Output].Columns[timeStamp]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\load in STG Employees\STG Employees.Inputs[OLE DB Destination Input].ExternalColumns[EmployeeID]"
+                      dataType="i4"
+                      name="EmployeeID" />
+                    <externalMetadataColumn
+                      refId="Package\load in STG Employees\STG Employees.Inputs[OLE DB Destination Input].ExternalColumns[LastName]"
+                      codePage="1252"
+                      dataType="str"
+                      length="30"
+                      name="LastName" />
+                    <externalMetadataColumn
+                      refId="Package\load in STG Employees\STG Employees.Inputs[OLE DB Destination Input].ExternalColumns[FirstName]"
+                      codePage="1252"
+                      dataType="str"
+                      length="30"
+                      name="FirstName" />
+                    <externalMetadataColumn
+                      refId="Package\load in STG Employees\STG Employees.Inputs[OLE DB Destination Input].ExternalColumns[Title]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="Title" />
+                    <externalMetadataColumn
+                      refId="Package\load in STG Employees\STG Employees.Inputs[OLE DB Destination Input].ExternalColumns[HireDate]"
+                      dataType="wstr"
+                      length="10"
+                      name="HireDate" />
+                    <externalMetadataColumn
+                      refId="Package\load in STG Employees\STG Employees.Inputs[OLE DB Destination Input].ExternalColumns[Address]"
+                      codePage="1252"
+                      dataType="str"
+                      length="60"
+                      name="Address" />
+                    <externalMetadataColumn
+                      refId="Package\load in STG Employees\STG Employees.Inputs[OLE DB Destination Input].ExternalColumns[City]"
+                      codePage="1252"
+                      dataType="str"
+                      length="15"
+                      name="City" />
+                    <externalMetadataColumn
+                      refId="Package\load in STG Employees\STG Employees.Inputs[OLE DB Destination Input].ExternalColumns[HomePhone]"
+                      codePage="1252"
+                      dataType="str"
+                      length="24"
+                      name="HomePhone" />
+                    <externalMetadataColumn
+                      refId="Package\load in STG Employees\STG Employees.Inputs[OLE DB Destination Input].ExternalColumns[Salary]"
+                      dataType="i4"
+                      name="Salary" />
+                    <externalMetadataColumn
+                      refId="Package\load in STG Employees\STG Employees.Inputs[OLE DB Destination Input].ExternalColumns[src_update_date]"
+                      dataType="dbTimeStamp"
+                      name="src_update_date" />
+                    <externalMetadataColumn
+                      refId="Package\load in STG Employees\STG Employees.Inputs[OLE DB Destination Input].ExternalColumns[create_timestamp]"
+                      dataType="dbTimeStamp"
+                      name="create_timestamp" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\load in STG Employees\STG Employees.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\load in STG Employees\STG Employees.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\load in STG Employees\STG Employees.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\load in STG Employees\STG Employees.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\load in STG Employees\STG Employees.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\load in STG Employees\STG Employees.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\load in STG Employees.Paths[Derived Column Output]"
+              endId="Package\load in STG Employees\STG Employees.Inputs[OLE DB Destination Input]"
+              name="Derived Column Output"
+              startId="Package\load in STG Employees\create timestamp.Outputs[Derived Column Output]" />
+            <path
+              refId="Package\load in STG Employees.Paths[OLE DB Source Output]"
+              endId="Package\load in STG Employees\create timestamp.Inputs[Derived Column Input]"
+              name="OLE DB Source Output"
+              startId="Package\load in STG Employees\Sales Employee SRC.Outputs[OLE DB Source Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Truncate the table"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{5C98F481-085F-4CB9-B07D-A28FAFBE42C5}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Truncate the table"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2022; © 2022 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{9335B423-34BC-4A90-9FBA-BD1D7277F902}"
+          SQLTask:SqlStatementSource="TRUNCATE TABLE STG.Employees;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\update conf table"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{269F15DA-BFFE-4969-8B16-5FAA87534866}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="update conf table"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2022; © 2022 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{9335B423-34BC-4A90-9FBA-BD1D7277F902}"
+          SQLTask:SqlStatementSource="update STG.Conf_Table&#xA;set last_extract_date=(select isnull(max(src_update_date),'1950-01-01')  from STG.Employees)&#xA;where table_name= 'Employees';" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{FA2D2EFD-1345-477D-BC18-57F754BF45DA}"
+      DTS:From="Package\load in STG Employees"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\load in DWH Employees" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 1]"
+      DTS:CreationName=""
+      DTS:DTSID="{506B3F88-D5DB-4487-AE1D-5CDA13AE32A9}"
+      DTS:From="Package\Truncate the table"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 1"
+      DTS:To="Package\get last data" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 2]"
+      DTS:CreationName=""
+      DTS:DTSID="{6A6A71AE-D015-495D-90AF-E4E8AC6E9FD4}"
+      DTS:From="Package\get last data"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 2"
+      DTS:To="Package\load in STG Employees" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 3]"
+      DTS:CreationName=""
+      DTS:DTSID="{721062E7-B3DF-46F7-A9E2-7343CF852C6B}"
+      DTS:From="Package\load in DWH Employees"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 3"
+      DTS:To="Package\update conf table" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="8">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="135.2,41.6"
+          Id="Package\get last data"
+          TopLeft="199.16665578468,12.1333332489596" />
+        <NodeLayout
+          Size="191.2,41.6"
+          Id="Package\load in DWH Employees"
+          TopLeft="429.999976505837,84.9333327427175" />
+        <NodeLayout
+          Size="187.2,41.6"
+          Id="Package\load in STG Employees"
+          TopLeft="437.499976096055,11.6666665521596" />
+        <NodeLayout
+          Size="162.4,41.6"
+          Id="Package\Truncate the table"
+          TopLeft="2.499999863406,15.5999998915195" />
+        <NodeLayout
+          Size="158.4,41.6"
+          Id="Package\update conf table"
+          TopLeft="444.999975686272,164.666665521595" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="528.349976300946,53.2666665521596">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,31.6666661905579"
+              Start="0,0"
+              End="0,24.1666661905579">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,24.1666661905579" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 1]"
+          TopLeft="164.899999863406,34.6666665702395">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="34.266655921274,0"
+              Start="0,0"
+              End="26.766655921274,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="26.766655921274,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 2]"
+          TopLeft="334.36665578468,32.6999999005596">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="103.133320311375,0"
+              Start="0,0"
+              End="95.633320311375,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="95.633320311375,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 3]"
+          TopLeft="524.899976096055,126.533332742718">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,38.1333327788775"
+              Start="0,0"
+              End="0,30.6333327788775">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,30.6333327788775" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\load in DWH Employees">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="120,41.6"
+          Id="Package\load in DWH Employees\Union All"
+          TopLeft="398.999994054437,172.9999974221" />
+        <NodeLayout
+          Size="155.2,41.6"
+          Id="Package\load in DWH Employees\add new records"
+          TopLeft="386.142851388881,265.14285319192" />
+        <NodeLayout
+          Size="191.2,41.6"
+          Id="Package\load in DWH Employees\DWH Employees lookup"
+          TopLeft="202.999996975065,5.99999991059303" />
+        <NodeLayout
+          Size="146.4,41.6"
+          Id="Package\load in DWH Employees\set old records"
+          TopLeft="749.999988824129,7.99999988079076" />
+        <NodeLayout
+          Size="154.4,41.6"
+          Id="Package\load in DWH Employees\STG Employees"
+          TopLeft="4.99999992549414,6.99999989569187" />
+        <NodeLayout
+          Size="157.6,41.6"
+          Id="Package\load in DWH Employees\DWH Employees"
+          TopLeft="403.14285113556,366.714280249817" />
+        <NodeLayout
+          Size="176,41.6"
+          Id="Package\load in DWH Employees\Check Changed data"
+          TopLeft="526.999992147089,5.99999991059299" />
+        <EdgeLayout
+          Id="Package\load in DWH Employees.Paths[Lookup Match Output]"
+          TopLeft="394.199996975065,26.799999910593">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="132.799995172024,0"
+              Start="0,0"
+              End="125.299995172024,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="125.299995172024,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="14.4586108672617,5,96.3827734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\load in DWH Employees.Paths[Derived Column Output]"
+          TopLeft="463.742851388881,306.74285319192">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="18.1999997466791,59.9714270578967"
+              Start="0,0"
+              End="18.1999997466791,52.4714270578967">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,25.9857135289484" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,25.9857135289484"
+                    Point2="0,29.9857135289484"
+                    Point3="4,29.9857135289484" />
+                  <mssgle:LineSegment
+                    End="14.1999997466791,29.9857135289484" />
+                  <mssgle:CubicBezierSegment
+                    Point1="14.1999997466791,29.9857135289484"
+                    Point2="18.1999997466791,29.9857135289484"
+                    Point3="18.1999997466791,33.9857135289484" />
+                  <mssgle:LineSegment
+                    End="18.1999997466791,52.4714270578967" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\load in DWH Employees.Paths[changed]"
+          TopLeft="702.999992147089,27.7999998956919">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="46.9999966770408,0"
+              Start="0,0"
+              End="39.4999966770408,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="39.4999966770408,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="0.557400682270412,5,38.3851953125,11.6630859375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\load in DWH Employees.Paths[Union All Output 1]"
+          TopLeft="461.371422721659,214.5999974221">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,50.5428557698206"
+              Start="0,0"
+              End="0,43.0428557698206">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,43.0428557698206" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\load in DWH Employees.Paths[OLE DB Source Output]"
+          TopLeft="159.399999925494,27.2999999031424">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="43.5999970495708,0"
+              Start="0,0"
+              End="36.0999970495708,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="36.0999970495708,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\load in DWH Employees.Paths[OLE DB Command Output]"
+          TopLeft="823.199988824129,49.5999998807908">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-345.533328103026,123.399997541309"
+              Start="0,0"
+              End="-345.533328103026,115.899997541309">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,69.0657880178802" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,69.0657880178802"
+                    Point2="0,73.0657880178802"
+                    Point3="-4,73.0657880178802" />
+                  <mssgle:LineSegment
+                    End="-341.533328103026,73.0657880178802" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-341.533328103026,73.0657880178802"
+                    Point2="-345.533328103026,73.0657880178802"
+                    Point3="-345.533328103026,77.0657880178802" />
+                  <mssgle:LineSegment
+                    End="-345.533328103026,115.899997541309" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\load in DWH Employees.Paths[Lookup No Match Output]"
+          TopLeft="298.599996975065,47.599999910593">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="141.733330412705,125.399997511507"
+              Start="0,0"
+              End="141.733330412705,117.899997511507">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,70.24999852655" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,70.24999852655"
+                    Point2="0,74.24999852655"
+                    Point3="4,74.24999852655" />
+                  <mssgle:LineSegment
+                    End="137.733330412705,74.24999852655" />
+                  <mssgle:CubicBezierSegment
+                    Point1="137.733330412705,74.24999852655"
+                    Point2="141.733330412705,74.24999852655"
+                    Point3="141.733330412705,78.24999852655" />
+                  <mssgle:LineSegment
+                    End="141.733330412705,117.899997511507" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="15.0602784876027,79.24999852655,111.6127734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\load in DWH Employees\DWH Employees lookup">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:string">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string"></Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:string">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\load in DWH Employees\STG Employees">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\load in DWH Employees\DWH Employees">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <TaskHost
+    design-time-name="Package\load in STG Employees">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="154.4,41.6"
+          Id="Package\load in STG Employees\STG Employees"
+          TopLeft="474.999992921949,23.9999996423721" />
+        <NodeLayout
+          Size="178.4,41.6"
+          Id="Package\load in STG Employees\Sales Employee SRC"
+          TopLeft="15.5000008617838,21.6666663093699" />
+        <NodeLayout
+          Size="158.4,41.6"
+          Id="Package\load in STG Employees\create timestamp"
+          TopLeft="238.999996438623,24.999999627471" />
+        <EdgeLayout
+          Id="Package\load in STG Employees.Paths[OLE DB Source Output]"
+          TopLeft="193.900000861784,44.1333329684204">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="45.0999955768392,0"
+              Start="0,0"
+              End="37.5999955768392,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="37.5999955768392,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\load in STG Employees.Paths[Derived Column Output]"
+          TopLeft="397.399996438623,45.2999996349215">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="77.599996483326,0"
+              Start="0,0"
+              End="70.099996483326,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="70.099996483326,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\load in STG Employees\STG Employees">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\load in STG Employees\Sales Employee SRC">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

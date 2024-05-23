@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<DTS:ConnectionManager xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:ObjectName="DESKTOP-7BSQ505.SalesDB"
+  DTS:DTSID="{909DA618-650D-4290-A10A-E2F986D9F5E5}"
+  DTS:CreationName="ADO">
+  <DTS:ObjectData>
+    <DTS:ConnectionManager
+      DTS:ConnectionString="Data Source=DESKTOP-7BSQ505;Initial Catalog=SalesDB;Provider=SQLOLEDB.1;Integrated Security=SSPI;Application Name=SSIS-DWH_FinalProjectSSIS-{909DA618-650D-4290-A10A-E2F986D9F5E5}DESKTOP-7BSQ505.SalesDB;Auto Translate=False;" />
+  </DTS:ObjectData>
+</DTS:ConnectionManager>
